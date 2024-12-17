@@ -1,0 +1,64 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../../../assets/background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    flex-direction: row;
+    
+}
+
+.card-logo {
+    height: 400px;
+    width: 400px;
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for better visual effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-login {
+    background-color: white;
+    height: 400px;
+    width: 400px;
+    border-radius: 0px 10px 10px 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for better visual effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-form {
+    height: 40px;
+    width: 100%;
+    border-radius: 50px;
+    border: 1px solid rgb(218, 165, 32);
+    padding: 12px;
+}
+
+.login-button {
+    color: white !important;
+    background-color: rgb(218, 165, 32) !important;
+    border: 1px solid rgb(218, 165, 32) !important;
+    height: 40px;
+    width: 100%;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 15px;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.login-button:hover {
+    color: white !important;
+    background-color: rgb(218, 165, 32) !important;
+    border: 1px solid rgb(218, 165, 32) !important;
+    box-shadow: 0 0 10px rgba(255, 125, 41, 0.5);
+    transform: scale(1.05);
+}

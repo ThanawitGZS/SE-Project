@@ -39,6 +39,7 @@ func SetupDatabase() {
 	PositionDormitorySecurityGuard := entity.Position{Name: "ผู้ดูแลรักษาความปลอดภัยหอพัก"}
 	PositionDormitoryMaid := entity.Position{Name: "แม่บ้าน"}
 	PositionDormitoryMaintenanceTechnician := entity.Position{Name: "ช่างซ่อมบำรุง"}
+	PositionDormitoryMember := entity.Position{Name: "ผู้พักอาศัย"}
 
 	db.FirstOrCreate(&GenderMale, &entity.Gender{Name: "ชาย"})
 	db.FirstOrCreate(&GenderFemale, &entity.Gender{Name: "หญิง"})
@@ -49,6 +50,7 @@ func SetupDatabase() {
 	db.FirstOrCreate(&PositionDormitorySecurityGuard, &entity.Position{Name: "ผู้ดูแลรักษาความปลอดภัยหอพัก"})
 	db.FirstOrCreate(&PositionDormitoryMaid, &entity.Position{Name: "แม่บ้าน"})
 	db.FirstOrCreate(&PositionDormitoryMaintenanceTechnician, &entity.Position{Name: "ช่างซ่อมบำรุง"})
+	db.FirstOrCreate(&PositionDormitoryMember, &entity.Position{Name: "ผู้พักอาศัย"})
 
 	hashedPassword, _ := HashPassword("12345")
 

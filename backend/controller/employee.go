@@ -156,7 +156,7 @@ func UpdateEmployee(c *gin.Context) {
 	 c.JSON(http.StatusOK, gin.H{"message": "ลบข้อมูลสำเร็จ"})
  }
  
- func ChangePassword(c *gin.Context) {
+ func ChangePasswordEmployee(c *gin.Context) {
 	 var employee entity.Employee
 	 employeeID := c.Param("id")
  
@@ -213,32 +213,41 @@ func UpdateEmployee(c *gin.Context) {
  
  func CheckEmail(c *gin.Context) {
 	 var employee entity.Employee
+	 var member entity.Member
 	 Email := c.Param("email")
  
 	 db := config.DB()
- 
-	 // Perform the database query
-	 result := db.Where("email = ?", Email).First(&employee)
- 
-	 // Check if an error occurred
-	 if result.Error != nil && result.Error != gorm.ErrRecordNotFound {
-		 // Return error response if the query failed (excluding "record not found")
-		 c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
-		 return
-	 }
- 
-	 // Check if the phone number exists
-	 if result.RowsAffected > 0 {
-		 // Phone number exists in the database
-		 c.JSON(http.StatusOK, gin.H{
-			 "isValid": false, // Indicating that the phone number is already in use
-		 })
-	 } else {
-		 // Phone number does not exist, it is valid for new registration
-		 c.JSON(http.StatusOK, gin.H{
-			 "isValid": true, // Indicating that the phone number can be used
-		 })
-	 }
+	 
+	 // Query for phone number in employee table
+	 employeeResult := db.Where("email = ?", Email).First(&employee)
+	 
+	 // Query for phone number in member table
+	 memberResult := db.Where("email = ?", Email).First(&member)
+
+	// Check if an error occurred in member query (excluding "record not found")
+	if memberResult.Error != nil && memberResult.Error != gorm.ErrRecordNotFound {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": memberResult.Error.Error()})
+		return
+	}
+
+	// Check if an error occurred in employee query (excluding "record not found")
+	if employeeResult.Error != nil && employeeResult.Error != gorm.ErrRecordNotFound {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": employeeResult.Error.Error()})
+		return
+	}
+	
+	 // Check if the Email exists in either table
+	if memberResult.RowsAffected > 0 || employeeResult.RowsAffected > 0 {
+		// Email exists in either member or employee table
+		c.JSON(http.StatusOK, gin.H{
+			"isValid": false, // Indicating that the Email is already in use
+		})
+	} else {
+		// Email does not exist in either table, it is valid for new registration
+		c.JSON(http.StatusOK, gin.H{
+			"isValid": true, // Indicating that the Email can be used
+		})
+	}
  }
 
  func CheckPhone(c *gin.Context) {
@@ -282,12 +291,21 @@ func UpdateEmployee(c *gin.Context) {
 
 func CheckNationalID(c *gin.Context) {
 	var employee entity.Employee
+	var member entity.Member
 	ID := c.Param("nationalID")
 
 	db := config.DB()
 
 	// Query for national ID in employee table
 	employeeResult := db.Where("national_id = ?", ID).First(&employee)
+	// Query for phone number in member table
+	memberResult := db.Where("national_id = ?", ID).First(&member)
+
+	// Check if an error occurred in member query (excluding "record not found")
+	if memberResult.Error != nil && memberResult.Error != gorm.ErrRecordNotFound {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": memberResult.Error.Error()})
+		return
+	}
 
 	// Check if an error occurred in employee query (excluding "record not found")
 	if employeeResult.Error != nil && employeeResult.Error != gorm.ErrRecordNotFound {
@@ -295,16 +313,17 @@ func CheckNationalID(c *gin.Context) {
 		return
 	}
 
-	// Check if the national ID exists in the employee table
-	if employeeResult.RowsAffected > 0 {
-		// National ID exists in the employee table
+	// Check if the phone number exists in either table
+	if memberResult.RowsAffected > 0 || employeeResult.RowsAffected > 0 {
+		// Phone number exists in either member or employee table
 		c.JSON(http.StatusOK, gin.H{
-			"isValid": false, // Indicating that the national ID is already in use
+			"isValid": false, // Indicating that the phone number is already in use
 		})
 	} else {
-		// National ID does not exist in the employee table, it is valid for new registration
+		// Phone number does not exist in either table, it is valid for new registration
 		c.JSON(http.StatusOK, gin.H{
-			"isValid": true, // Indicating that the national ID can be used
+			"isValid": true, // Indicating that the phone number can be used
 		})
 	}
+
 }

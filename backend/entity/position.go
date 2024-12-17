@@ -9,4 +9,5 @@ type Position struct {
 	Name string
 
 	Employees []Employee `gorm:"foreignKey:position_id"`
+	Member []Member `gorm:"foreignKey:position_id"`
 }

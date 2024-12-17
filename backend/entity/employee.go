@@ -8,8 +8,8 @@ type Employee struct {
 	gorm.Model
 	FirstName string
 	LastName  string
-	PhoneNumber		string `gorm:"unique"`
-	NationalId string
+	PhoneNumber		string //`gorm:"unique"`
+	NationalId string //`gorm:"unique"`
 	Email     string
 	Password  string
 	Profile   string `gorm:"type:longtext"`

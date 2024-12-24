@@ -1,6 +1,7 @@
 # SE-Project
 SE Project Apartment management system
 - My Responsibility
+  - Create Member/Employee
   - Room Management
   - Central-area Management 
 

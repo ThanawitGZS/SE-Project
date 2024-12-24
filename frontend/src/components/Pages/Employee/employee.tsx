@@ -157,7 +157,7 @@ function Employee() {
           rowKey="ID"
           columns={columns}
           dataSource={employees} // Data from the API
-          pagination={{ pageSize: 3 }}
+          pagination={{ pageSize: 4 }}
           style={{ width: "100%", overflowX: "auto" }}
         />
       </div>

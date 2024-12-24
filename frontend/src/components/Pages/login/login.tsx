@@ -25,12 +25,25 @@ function LoginPages() {
     if (res.status === 200) {
       messageApi.success("เข้าสู่ระบบสำเร็จ");
       localStorage.setItem("isLogin", "true");
-      localStorage.setItem("page", "dashboard");
-      localStorage.setItem("token_type", res.data.token_type);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("employeeID", res.data.employeeID);
-      localStorage.setItem("positionID", res.data.positionID);
-      localStorage.setItem("token_expiration", res.data.token_expiration);
+      if (res.data.type === "Member"){
+        localStorage.setItem("Type", res.data.type)
+        localStorage.setItem("page", "dashboard");
+        localStorage.setItem("token_type", res.data.token_type);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("memberID", res.data.memberID);
+        localStorage.setItem("positionID", res.data.positionID);
+        localStorage.setItem("token_expiration", res.data.token_expiration);
+      }
+
+      else if (res.data.type === "Employee") {
+        localStorage.setItem("Type", res.data.type)
+        localStorage.setItem("page", "dashboard");
+        localStorage.setItem("token_type", res.data.token_type);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("employeeID", res.data.employeeID);
+        localStorage.setItem("positionID", res.data.positionID);
+        localStorage.setItem("token_expiration", res.data.token_expiration);
+      }
       
       const positionID = localStorage.getItem("positionID");
       let role = "";
@@ -48,7 +61,7 @@ function LoginPages() {
         } else if (role === "Manager") {
           navigate("/dashboard");
         } else {
-          navigate("/member");
+          navigate("/dashboard");
         }
       }, 2000);
     } else {

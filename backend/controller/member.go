@@ -95,7 +95,7 @@ func GetMemberByID(c *gin.Context) {
 	var user entity.Member
 
 	db := config.DB()
-	results := db.Preload("Employee").First(&user, ID)
+	results := db.Preload("Employee").Preload("Gender").Preload("Position").First(&user, ID)
 	if results.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
 		return

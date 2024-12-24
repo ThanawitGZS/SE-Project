@@ -22,4 +22,5 @@ type Employee struct {
 	Position   Position `gorm:"foreignKey: position_id"`
 
 	Members			[]Member	`gorm:"foreignKey: employee_id"`
+	Room			[]Room	`gorm:"foreignKey: employee_id"`
 }

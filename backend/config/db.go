@@ -28,11 +28,21 @@ func SetupDatabase() {
 		&entity.Employee{},
 		&entity.Gender{},
 		&entity.Position{},
+		&entity.Room{},
+		&entity.PetAllow{},
+		&entity.RoomType{},
 	)
 
 	GenderMale := entity.Gender{Name: "ชาย"}
 	GenderFemale := entity.Gender{Name: "หญิง"}
 	GenderOther := entity.Gender{Name: "อื่นๆ"}
+
+	PetAllow := entity.PetAllow{Name: "อนุญาต"}
+	PetNotAllow := entity.PetAllow{Name: "ไม่อนุญาต"}
+
+	RoomAvaliable := entity.RoomType{Name: "ว่าง"}
+	RoomNotAvaliable := entity.RoomType{Name: "ไม่ว่าง"}
+	RoomMaintenance := entity.RoomType{Name: "กำลังปรับปรุง"}
 
 	PositionDormitoryAdmin := entity.Position{Name: "ไอที"}
 	PositionDormitoryCaretaker := entity.Position{Name: "ผู้ดูแลหอพัก"}
@@ -44,6 +54,13 @@ func SetupDatabase() {
 	db.FirstOrCreate(&GenderMale, &entity.Gender{Name: "ชาย"})
 	db.FirstOrCreate(&GenderFemale, &entity.Gender{Name: "หญิง"})
 	db.FirstOrCreate(&GenderOther, &entity.Gender{Name: "อื่นๆ"})
+
+	db.FirstOrCreate(&PetAllow, &entity.PetAllow{Name: "อนุญาต"})
+	db.FirstOrCreate(&PetNotAllow, &entity.PetAllow{Name: "ไม่อนุญาต"})
+
+	db.FirstOrCreate(&RoomAvaliable, &entity.RoomType{Name: "ว่าง"})
+	db.FirstOrCreate(&RoomNotAvaliable, &entity.RoomType{Name: "ไม่ว่าง"})
+	db.FirstOrCreate(&RoomMaintenance, &entity.RoomType{Name: "กำลังปรับปรุง"})
 
 	db.FirstOrCreate(&PositionDormitoryAdmin, &entity.Position{Name: "ไอที"})
 	db.FirstOrCreate(&PositionDormitoryCaretaker, &entity.Position{Name: "ผู้ดูแลหอพัก"})

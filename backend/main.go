@@ -46,6 +46,10 @@ func main() {
         r.DELETE("/member/:id", controller.DeleteMember)
         r.PATCH("/member/:id/chanagePasswordMember", controller.ChangePasswordMember)
 
+        //Room Routes
+        r.GET("/rooms", controller.GetRooms)
+        r.GET("/roomtypes", controller.GetRoomTypes) //RoomType
+        r.GET("/petallows", controller.GetPetAllows) //PetAllow
 
         // Gender Routes
         r.GET("/genders", controller.GetGenders)

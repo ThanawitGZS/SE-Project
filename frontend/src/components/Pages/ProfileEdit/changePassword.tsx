@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Space, Button, Col, Row, Divider, Form, Input, Card, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { changePasswordEmployee } from "../../../services/https";
+import { changePasswordEmployee , changePasswordMember } from "../../../services/https";
 
 function ChangePassword() {
   const navigate = useNavigate();
-  const employeeID = localStorage.getItem("employeeID"); 
+  const Type = localStorage.getItem("Type")
+  const [user,setUserID] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form] = Form.useForm();
@@ -31,39 +32,76 @@ function ChangePassword() {
       confirm_password: values.ConfirmPassword,
     };
 
-    try {
-      const res = await changePasswordEmployee(employeeID || "", payload); 
-      if (res.status === 200) {
-        messageApi.open({
-          type: "success",
-          content: res.data.message || "เปลี่ยนรหัสผ่านสำเร็จ",
-        });
-        setTimeout(() => {
-          navigate("/profileEdit");
-        }, 2000);
-      } else {
+    if (Type === "Member"){
+      const memberID = localStorage.getItem("memberID") ?? "";
+      setUserID(memberID)
+      try {
+        const res = await changePasswordMember(user || "", payload); 
+        if (res.status === 200) {
+          messageApi.open({
+            type: "success",
+            content: res.data.message || "เปลี่ยนรหัสผ่านสำเร็จ",
+          });
+          setTimeout(() => {
+            navigate("/profileEdit");
+          }, 2000);
+        } else {
+          messageApi.open({
+            type: "error",
+            content: res.data.error || "เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน",
+          });
+        }
+        if(res.status === 400){
+          form.resetFields(); // รีเซ็ตฟอร์ม
+          setIsSubmitting(false);
+        }
+      } catch (error) {
         messageApi.open({
           type: "error",
-          content: res.data.error || "เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน",
+          content: "เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์",
         });
       }
-    } catch (error) {
-      messageApi.open({
-        type: "error",
-        content: "เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์",
-      });
+    }else if(Type === "Employee"){
+      const employeeID = localStorage.getItem("employeeID") ?? "";
+      setUserID(employeeID)
+      try {
+        const res = await changePasswordEmployee(user || "", payload); 
+        if (res.status === 200) {
+          messageApi.open({
+            type: "success",
+            content: res.data.message || "เปลี่ยนรหัสผ่านสำเร็จ",
+          });
+          setTimeout(() => {
+            navigate("/profileEdit");
+          }, 2000);
+        } else {
+          messageApi.open({
+            type: "error",
+            content: res.data.error || "เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน",
+          });
+        }
+        if(res.status === 400){
+          form.resetFields(); // รีเซ็ตฟอร์ม
+          setIsSubmitting(false);
+        }
+      } catch (error) {
+        messageApi.open({
+          type: "error",
+          content: "เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์",
+        });
+      }
     }
   };
 
   useEffect(() => {
-    if (!employeeID) {
+    if (!Type) {
       messageApi.open({
         type: "error",
         content: "ไม่พบข้อมูลผู้ใช้",
       });
       navigate("/profileEdit");
     }
-  }, [employeeID, navigate, messageApi]);
+  }, [Type, navigate, messageApi]);
 
   return (
     <div>

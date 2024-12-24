@@ -73,7 +73,7 @@ function HeaderComponent() {
       icon: <TeamOutlined />,
     },
     {
-      label: <Link to="/dashboard">คอร์สของฉัน</Link>, 
+      label: <Link to="/room">คอร์สของฉัน</Link>, 
       key: 'myCourse',
       icon: <BookOutlined />,
     },

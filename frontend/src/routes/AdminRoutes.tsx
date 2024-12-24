@@ -7,6 +7,8 @@ import FullLayout from "../components/FullLayout/fullLayout";
 const LoginPages = Loadable(lazy(() => import("../components/Pages/login/login")));
 const Dashboard = Loadable(lazy(() => import("../components/Pages/dashboard/dashboard")))
 
+const Room = Loadable(lazy(() => import("../components/Pages/Room/index")))
+
 const ProfileEdit = Loadable(lazy(() => import("../components/Pages/ProfileEdit/profileEdit")))
 const ChangePassword = Loadable(lazy(() => import("../components/Pages/ProfileEdit/changePassword")))
 
@@ -20,11 +22,6 @@ const EditMember = Loadable(lazy(() => import("../components/Pages/Member/edit/e
 // const ProfileEdit = Loadable(lazy(() => import("")))
 
 const AdminRoutes = (isLoggedIn: boolean, role: string): RouteObject => {
-
-    const dashboardRoute = {
-        path: "/dashboard",
-        element: <Dashboard />,
-    };
 
     const employeeRoutes = [
         {
@@ -60,8 +57,10 @@ const AdminRoutes = (isLoggedIn: boolean, role: string): RouteObject => {
         path: "/",
         element: isLoggedIn ? <FullLayout /> : <LoginPages />,
         children: [
-            ...(role !== "Common" ? [dashboardRoute] : [] ),
-        
+        {
+          path: "/dashboard",
+          element: <Dashboard />,
+        },
         {
             path: "/profileEdit",
             element: <ProfileEdit />,
@@ -71,7 +70,6 @@ const AdminRoutes = (isLoggedIn: boolean, role: string): RouteObject => {
             element: <ChangePassword />,
         },
 
-        
         ...(role === "IT" ? [
           {
             path: "/employee",
@@ -80,6 +78,10 @@ const AdminRoutes = (isLoggedIn: boolean, role: string): RouteObject => {
           {
             path: "/member",
             children: memberRoutes,
+          },
+          {
+            path: "/room",
+            element: <Room/>,
           },
         ] : []),
 

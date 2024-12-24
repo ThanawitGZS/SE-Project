@@ -149,10 +149,34 @@ async function changePasswordMember(
 ) {
   return await axios
     .patch(
-      `${apiUrl}/member/${memberID}/changePasswordMember`,
+      `${apiUrl}/member/${memberID}/chanagePasswordMember`,
       payload,
       requestOptions
     )
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+// Room
+async function GetRooms() {
+  return await axios
+    .get(`${apiUrl}/rooms`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+// RoomType
+async function GetRoomTypes() {
+  return await axios
+    .get(`${apiUrl}/roomtypes`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+// RoomType
+async function GetPetAllows() {
+  return await axios
+    .get(`${apiUrl}/petallows`, requestOptions)
     .then((res) => res)
     .catch((e) => e.response);
 }
@@ -178,6 +202,9 @@ export {
   GetMemberByID,
   UpdateMember,
   DeleteMemberByID,
-  changePasswordMember
+  changePasswordMember,
 
+  GetRooms,
+  GetPetAllows,
+  GetRoomTypes,
 }

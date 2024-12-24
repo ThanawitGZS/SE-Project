@@ -64,22 +64,6 @@ function MemberCreate() {
     }
   };
 
-  // const getPositions = async () => {
-  //   try {
-  //     const res = await GetPositions(); // Fetch data from the API
-
-  //     if (res.status === 200) {
-  //       setPositions(res.data); // Set the data from the API response
-  //     } else {
-  //       setPositions([]);
-  //       messageApi.error(res.data.error || "ไม่สามารถดึงข้อมูลได้");
-  //     }
-  //   } catch (error) {
-  //     setPositions([]);
-  //     messageApi.error("เกิดข้อผิดพลาดในการดึงข้อมูล");
-  //   }
-  // };
-
   const onPreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
       file.preview = await new Promise((resolve) => {

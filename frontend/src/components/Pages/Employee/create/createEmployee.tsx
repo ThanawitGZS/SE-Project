@@ -170,7 +170,7 @@ function EmployeeCreate() {
       });
       setTimeout(() => {
         navigate("/employee");
-      }, 2000);
+      }, 5000);
     } else {
       messageApi.open({
         type: "error",
@@ -379,7 +379,7 @@ function EmployeeCreate() {
               >
                 <Input 
                     id="randomNationalID" // Use a less predictable id attribute
-                    type="tel" // Tel type, which may help prevent cookie-based autofill
+                    type="nationalid"
                     autoComplete="new-password" // Prevent browser autofill
                     maxLength={13}
                     onChange={handleNationalIDChange}

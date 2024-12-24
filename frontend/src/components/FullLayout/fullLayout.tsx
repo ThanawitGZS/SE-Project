@@ -4,8 +4,10 @@ import "../../App.css";
 import { Breadcrumb, Layout, theme, message } from "antd";
 
 import Bar from "../Header/index"
-import ITSider from "../Sider/ITSider";
+import BarMember from "../Header/member.tsx"
 import Dashboard from "../Pages/dashboard/dashboard";
+
+import Room from "../Pages/Room/index.tsx"
 
 import Employee from "../Pages/Employee/employee";
 import EmployeeCreate from "../Pages/Employee/create/createEmployee";
@@ -33,15 +35,15 @@ const FullLayout: React.FC = () => {
       role = "Common";
     }
   
-    // const renderSider = () => {
-    //   if (role === "IT") {
-    //     return <ITSider />;
-    //   } else if (role === "Manager") {
-    //     return <ManagerSider />;
-    //   } else {
-    //     return <CommonSider />;
-    //   }
-    // };
+    const renderSider = () => {
+      if (role === "IT") {
+        return <Bar />;
+      // } else if (role === "Manager") {
+      //   return <ManagerSider />;
+      } else {
+        return <BarMember />;
+      }
+    };
   
     const {
       token: { colorBgContainer: _colorBgContainer },
@@ -51,9 +53,7 @@ const FullLayout: React.FC = () => {
       <>
         {contextHolder}
         <Layout style={{ minHeight: "100vh", backgroundColor: "#F5F5F5" }}>
-        <Bar/>
-        {/* <ITSider /> */}
-          {/* {renderSider()} */}
+          {renderSider()}
   
           <Layout style={{ backgroundColor: "#434343", minHeight: "100vh" }}>
             <Content style={{ margin: "0 30px" }}>
@@ -78,6 +78,7 @@ const FullLayout: React.FC = () => {
                     <Route path="/member" element={<Member />} />
                     <Route path="/member/create" element={<MemberCreate />} />
                     <Route path="/member/edit/:id" element={<MemberEdit />} />
+                    <Route path="/room" element={<Room />}></Route>
                 </Routes>
               </div>
             </Content>

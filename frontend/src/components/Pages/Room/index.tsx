@@ -508,7 +508,6 @@ useEffect(() => {
                 okType="danger"
                 okText="ลบ"
                 cancelText="ยกเลิก"
-                footer={null} // ลบ default footer ถ้าต้องการ
             >
                 <p>คุณแน่ใจเหรอว่าต้องการลบข้อมูลห้องพัก ?</p>
             </Modal>

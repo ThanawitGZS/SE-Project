@@ -18,11 +18,9 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import { MemberInterface } from "../../../../interfaces/Member";
 import { GenderInterface } from "../../../../interfaces/Gender";
-// import { PositionInterface } from "../../../../interfaces/Position";
 
 import type { UploadFile, UploadProps } from "antd";
 import { CheckPhone , CheckNationalID , CheckEmail, CreateMember , GetGenders  } from "../../../../services/https";
-// import { GetPositions } from "../../../../services/https";
 import { useNavigate, Link } from "react-router-dom";
 import ImgCrop from "antd-img-crop";
 
@@ -33,7 +31,6 @@ function MemberCreate() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form] = Form.useForm();
   const [genders, setGenders] = useState<GenderInterface[]>([]);
-  // const [positions, setPositions] = useState<PositionInterface[]>([]);
   
   const [emailInvalid, setEmailInvalid] = useState(false); 
   const [phoneNumberInvalid, setPhoneNumberInvalid] = useState(false);
@@ -79,7 +76,6 @@ function MemberCreate() {
 
   useEffect(() => {
     getGenders();
-    // getPositions();
   }, []);
 
   const checkPhone = async (phoneNumber: string) => {

@@ -37,14 +37,6 @@ func CreateMember(c *gin.Context) {
 		return
 	}
 
-	// ค้นหา position ด้วย id
-    // var position entity.Position
-	// db.First(&position, member.PositionID)
-	// if position.ID == 0 {
-	// 	c.JSON(http.StatusNotFound, gin.H{"error": "ไม่พบตำแหน่ง"})
-	// 	return
-	// }
-
 	var position entity.Position
 	result := db.Where("name = ?", "ผู้พักอาศัย").First(&position)
 	if result.Error != nil {

@@ -47,7 +47,12 @@ func main() {
         r.PATCH("/member/:id/chanagePasswordMember", controller.ChangePasswordMember)
 
         //Room Routes
+        r.POST("/room", controller.CreateRoom)
+        r.PATCH("/room/:id", controller.UpdateRoom)
+        r.DELETE("/room/:id", controller.DeleteRoom)
+        r.GET("/room/:id", controller.GetRoomByID)
         r.GET("/rooms", controller.GetRooms)
+        r.POST("/checkRoomName/:roomName", controller.CheckRoomName)
         r.GET("/roomtypes", controller.GetRoomTypes) //RoomType
         r.GET("/petallows", controller.GetPetAllows) //PetAllow
 

@@ -3,6 +3,7 @@ import { LoginInterface  } from "../../interfaces/Login";
 import { EmployeeInterface } from "../../interfaces/Employee";
 import { ChangePasswordInterface } from "../../interfaces/ChangePassword";
 import { MemberInterface } from "../../interfaces/Member";
+import { RoomInterface } from "../../interfaces/Room";
 
 const apiUrl = "http://localhost:8000";
 const Authorization = localStorage.getItem("token");
@@ -158,9 +159,45 @@ async function changePasswordMember(
 }
 
 // Room
+
+async function CreateRoom(data: RoomInterface) {
+  return await axios
+    .post(`${apiUrl}/room`, data, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function UpdateRoom(id: string | undefined, data: RoomInterface) {
+  return await axios
+    .patch(`${apiUrl}/room/${id}`, data, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function DeleteRoomByID(id: string | undefined) {
+  return await axios
+    .delete(`${apiUrl}/room/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
 async function GetRooms() {
   return await axios
     .get(`${apiUrl}/rooms`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function GetRoomByID(id: string | undefined) {
+  return await axios
+    .get(`${apiUrl}/room/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function CheckRoomName(roomName: string) {
+  return await axios
+    .post(`${apiUrl}/checkRoomName/${roomName}`, requestOptions)
     .then((res) => res)
     .catch((e) => e.response);
 }
@@ -204,7 +241,12 @@ export {
   DeleteMemberByID,
   changePasswordMember,
 
+  CreateRoom,
+  UpdateRoom,
+  DeleteRoomByID,
+  CheckRoomName,
   GetRooms,
+  GetRoomByID,
   GetPetAllows,
   GetRoomTypes,
 }

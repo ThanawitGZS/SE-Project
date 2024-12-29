@@ -170,7 +170,7 @@ function EmployeeCreate() {
       });
       setTimeout(() => {
         navigate("/employee");
-      }, 5000);
+      }, 4000);
     } else {
       messageApi.open({
         type: "error",

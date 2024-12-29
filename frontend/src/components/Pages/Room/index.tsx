@@ -195,7 +195,7 @@ export default function Room() {
                 setRoomNameInvalid(false); 
               return true;
             } else {
-              messageApi.error("ชื่อห้องนีี้มีอยู่แล้ว");
+              messageApi.error("ชื่อห้องนี้มีอยู่แล้ว");
               setRoomNameInvalid(true);
               return false;
             }

@@ -9,7 +9,6 @@ import (
 
 func TestEmployee(t *testing.T){
 	g := NewGomegaWithT(t)
-	var id uint
 
 	t.Run(`employee is valid`, func(t *testing.T) {
 		employee := entity.Employee{
@@ -20,8 +19,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit@stayease.com",
 			Password:"12345",
 			Profile:"longtext",
-			GenderID:1,
-			PositionID:1,
+			GenderID:uint(1),
+			PositionID:uint(1),
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)
@@ -39,8 +38,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit@stayease.com",
 			Password:"12345",
 			Profile:"longtext",
-			GenderID:1,
-			PositionID:1,
+			GenderID:uint(1),
+			PositionID:uint(1),
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)
@@ -59,8 +58,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit@stayease.com",
 			Password:"12345",
 			Profile:"longtext",
-			GenderID:1,
-			PositionID:1,
+			GenderID:uint(1),
+			PositionID:uint(1),
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)
@@ -79,8 +78,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit@stayease.com",
 			Password:"12345",
 			Profile:"longtext",
-			GenderID:1,
-			PositionID:1,
+			GenderID:uint(1),
+			PositionID:uint(1),
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)
@@ -99,8 +98,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit@stayease.com",
 			Password:"12345",
 			Profile:"longtext",
-			GenderID:1,
-			PositionID:1,
+			GenderID:uint(1),
+			PositionID:uint(1),
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)
@@ -119,8 +118,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit.com", //ผิดตรงนี้	
 			Password:"12345",
 			Profile:"longtext",
-			GenderID:1,
-			PositionID:1,
+			GenderID:uint(1),
+			PositionID:uint(1),
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)
@@ -139,8 +138,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit@stayease.com",
 			Password:"", //ผิดตรงนี้
 			Profile:"longtext",
-			GenderID:1,
-			PositionID:1,
+			GenderID:uint(1),
+			PositionID:uint(1),
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)
@@ -159,8 +158,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit@stayease.com",
 			Password:"12345",
 			Profile:"", //ผิดตรงนี้
-			GenderID:1,
-			PositionID:1,
+			GenderID:uint(1),
+			PositionID:uint(1),
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)
@@ -179,8 +178,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit@stayease.com",
 			Password:"12345",
 			Profile:"longtext", 
-			GenderID:id, //ผิดตรงนี้
-			PositionID:1,
+			GenderID:uint(0), //ผิดตรงนี้
+			PositionID:uint(1),
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)
@@ -199,8 +198,8 @@ func TestEmployee(t *testing.T){
 			Email:"Thanawit@stayease.com",
 			Password:"12345",
 			Profile:"longtext", 
-			GenderID:1,
-			PositionID:id, //ผิดตรงนี้
+			GenderID:uint(1),
+			PositionID:uint(0), //ผิดตรงนี้
 		}
 
 		ok, err := govalidator.ValidateStruct(employee)

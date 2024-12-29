@@ -1,0 +1,1011 @@
+{
+  "id": "8d91b0cb-6904-487b-914f-01f17a5f0885",
+  "version": "2.0",
+  "name": "SE-B6500900",
+  "url": "http://localhost:5173/room",
+  "tests": [{
+    "id": "101d6d01-95e3-4953-ae05-03c51f225dca",
+    "name": "CreateRoom_Success",
+    "commands": [{
+      "id": "e2e743b2-6822-4467-8bed-4d32fbc9e628",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/room",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "996948df-d763-4d85-946e-8de15d449e77",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-space-item span",
+      "targets": [
+        ["css=.ant-space-item span", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/main/div/div/div/div[2]/div/div/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'ลงทะเบียน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "aa6f473c-e280-4b85-874f-88147d22c07b",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomRoomname",
+      "targets": [
+        ["id=randomRoomname", "id"],
+        ["css=#randomRoomname", "css:finder"],
+        ["xpath=//input[@id='randomRoomname']", "xpath:attributes"],
+        ["xpath=//form[@id='register']/div/div/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "c"
+    }, {
+      "id": "da7d86e3-4bee-4d42-a402-bfcb7c6fe530",
+      "comment": "",
+      "command": "type",
+      "target": "id=roomRentInput",
+      "targets": [
+        ["id=roomRentInput", "id"],
+        ["css=#roomRentInput", "css:finder"],
+        ["xpath=//input[@id='roomRentInput']", "xpath:attributes"],
+        ["xpath=//form[@id='register']/div/div[2]/div/div/div[2]/div/div/div/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "123"
+    }, {
+      "id": "85be0914-8ed4-4716-be81-53e1666b80db",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomRoomlimit",
+      "targets": [
+        ["id=randomRoomlimit", "id"],
+        ["css=#randomRoomlimit", "css:finder"],
+        ["xpath=//input[@id='randomRoomlimit']", "xpath:attributes"],
+        ["xpath=//form[@id='register']/div/div[3]/div/div/div[2]/div/div/div/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/div/div/div/div[2]/input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "31ffb759-8e77-4779-869b-1bbd54f72475",
+      "comment": "",
+      "command": "click",
+      "target": "id=register_RoomTypeID",
+      "targets": [
+        ["id=register_RoomTypeID", "id"],
+        ["css=#register_RoomTypeID", "css:finder"],
+        ["xpath=//input[@id='register_RoomTypeID']", "xpath:attributes"],
+        ["xpath=//form[@id='register']/div/div[4]/div/div/div[2]/div/div/div/div/span/span/input", "xpath:idRelative"],
+        ["xpath=//span/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8bd8bf97-4ba5-45cf-bf53-eb5340cff6c6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-select-item-option-active > .ant-select-item-option-content",
+      "targets": [
+        ["css=.ant-select-item-option-active > .ant-select-item-option-content", "css:finder"],
+        ["xpath=//div[4]/div/div/div[2]/div/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "40778512-9a5b-464d-a4ab-11145e9a36dc",
+      "comment": "",
+      "command": "click",
+      "target": "id=register_PetAllowID",
+      "targets": [
+        ["id=register_PetAllowID", "id"],
+        ["css=#register_PetAllowID", "css:finder"],
+        ["xpath=//input[@id='register_PetAllowID']", "xpath:attributes"],
+        ["xpath=//form[@id='register']/div/div[5]/div/div/div[2]/div/div/div/div/span/span/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div[2]/div/div/div/div/span/span/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5fa85ea2-4b74-45dd-bd14-2e8b5f137fcf",
+      "comment": "",
+      "command": "click",
+      "target": "css=div:nth-child(5) .ant-select-item:nth-child(1) > .ant-select-item-option-content",
+      "targets": [
+        ["css=div:nth-child(5) .ant-select-item:nth-child(1) > .ant-select-item-option-content", "css:finder"],
+        ["xpath=//div[4]/div/div/div[2]/div/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ae762c32-8da5-414a-8eb4-fa12309d6f18",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-col > .ant-btn > span",
+      "targets": [
+        ["css=.ant-col > .ant-btn > span", "css:finder"],
+        ["xpath=//form[@id='register']/div[2]/div/div/div/div/div/div/button/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/div/div/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "090f693a-18c5-427b-bdf7-b19fa82e8f48",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.ant-btn-loading",
+      "targets": [
+        ["css=.ant-btn-loading", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='register']/div[2]/div/div/div/div/div/div/button", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e2a8e9f-627b-49cc-9a2a-0f1795f1e8bb",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div[4]/div/div/div/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'สร้างห้องพักสำเร็จ')]", "xpath:innerText"]
+      ],
+      "value": "สร้างห้องพักสำเร็จ"
+    }]
+  }, {
+    "id": "f1446894-2fd5-4a87-9274-88ee1f3d43ae",
+    "name": "CreateRoom_Fail",
+    "commands": [{
+      "id": "4198dd16-3c8f-4d9f-be3d-602785424ff2",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/room",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dfa5d3c9-6af4-4f70-b131-72693251641b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-space-item span",
+      "targets": [
+        ["css=.ant-space-item span", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/main/div/div/div/div[2]/div/div/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'ลงทะเบียน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c17ac78c-4c9b-4f33-a681-334d5bde84f3",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomRoomname",
+      "targets": [
+        ["id=randomRoomname", "id"],
+        ["css=#randomRoomname", "css:finder"],
+        ["xpath=//input[@id='randomRoomname']", "xpath:attributes"],
+        ["xpath=//form[@id='register']/div/div/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "c"
+    }, {
+      "id": "0ef6a20f-06a4-4a8d-8537-0bd284d1a096",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div[3]/div/div/div/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'ชื่อห้องนี้มีอยู่แล้ว')]", "xpath:innerText"]
+      ],
+      "value": "ชื่อห้องนี้มีอยู่แล้ว"
+    }]
+  }, {
+    "id": "a4eb8aaf-735d-48e8-af97-06556108c69a",
+    "name": "CreateMember_Success",
+    "commands": [{
+      "id": "430feb71-a139-445a-8ae7-30c32fe5cc04",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/member/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6e8f3d2d-e261-4733-b06c-e8f3eff80182",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomFirstName",
+      "targets": [
+        ["id=randomFirstName", "id"],
+        ["css=#randomFirstName", "css:finder"],
+        ["xpath=//input[@id='randomFirstName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[2]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "b"
+    }, {
+      "id": "28ade69c-c64c-4f1d-8326-2b7d852a8269",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomLastName",
+      "targets": [
+        ["id=randomLastName", "id"],
+        ["css=#randomLastName", "css:finder"],
+        ["xpath=//input[@id='randomLastName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[3]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "b"
+    }, {
+      "id": "8eee0c7f-cd22-4497-afef-d0e72a036f69",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomPhoneNumber",
+      "targets": [
+        ["id=randomPhoneNumber", "id"],
+        ["css=#randomPhoneNumber", "css:finder"],
+        ["xpath=//input[@id='randomPhoneNumber']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[4]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "0909099993"
+    }, {
+      "id": "6f4773fb-9afa-4466-9adf-fd69410db61d",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomNationalID",
+      "targets": [
+        ["id=randomNationalID", "id"],
+        ["css=#randomNationalID", "css:finder"],
+        ["xpath=//input[@id='randomNationalID']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[5]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "1221211111113"
+    }, {
+      "id": "936621e0-1917-4ea5-8db7-bee5e49a9c69",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_Email",
+      "targets": [
+        ["id=basic_Email", "id"],
+        ["css=#basic_Email", "css:finder"],
+        ["xpath=//input[@id='basic_Email']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[6]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "cb@stayease.com"
+    }, {
+      "id": "1ab27f78-9c61-44ad-8533-861c469f5749",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_Password",
+      "targets": [
+        ["id=basic_Password", "id"],
+        ["css=#basic_Password", "css:finder"],
+        ["xpath=//input[@id='basic_Password']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[7]/div/div/div[2]/div/div/span/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/span/input", "xpath:position"]
+      ],
+      "value": "123456"
+    }, {
+      "id": "771cc38e-5a89-4f4a-8ca7-5638c8835bac",
+      "comment": "",
+      "command": "click",
+      "target": "id=basic_GenderID",
+      "targets": [
+        ["id=basic_GenderID", "id"],
+        ["css=#basic_GenderID", "css:finder"],
+        ["xpath=//input[@id='basic_GenderID']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[8]/div/div/div[2]/div/div/div/div/span/span/input", "xpath:idRelative"],
+        ["xpath=//span/span/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5af392bb-be95-4d4c-8c57-6f78dc500e21",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-select-item-option-active > .ant-select-item-option-content",
+      "targets": [
+        ["css=.ant-select-item-option-active > .ant-select-item-option-content", "css:finder"],
+        ["xpath=//div/div/div[2]/div/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "809de3c2-20e3-40f6-a320-800da5c39e6b",
+      "comment": "",
+      "command": "type",
+      "target": "name=file",
+      "targets": [
+        ["id=basic_Password", "id"],
+        ["css=#basic_Password", "css:finder"],
+        ["xpath=//input[@id='basic_Password']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[7]/div/div/div[2]/div/div/span/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/span/input", "xpath:position"]
+      ],
+      "value": "D:\\GitHub\\SE-Project\\frontend\\src\\assets\\logo.png"
+    }, {
+      "id": "dd88a55e-ad82-4b9d-bb91-979d2f284610",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-btn:nth-child(2) > span",
+      "targets": [
+        ["css=.ant-btn:nth-child(2) > span", "css:finder"],
+        ["xpath=//button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4e492b18-d731-4723-8dfe-f888e6b439cd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-btn-primary",
+      "targets": [
+        ["css=.ant-btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div[2]/div/div/div/div/div/div/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e2b96256-3f23-4948-8ed1-d6bab1167223",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.ant-btn-primary",
+      "targets": [
+        ["css=.ant-btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div[2]/div/div/div/div/div/div/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c59340b9-f1d5-47e1-a2c8-06366eca1b29",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.ant-btn-primary",
+      "targets": [
+        ["css=.ant-btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div[2]/div/div/div/div/div/div/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9b9e3fd6-fac5-43b6-98b7-ec666fe513bf",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-btn-primary > span",
+      "targets": [
+        ["css=.ant-btn-primary > span", "css:finder"],
+        ["xpath=//form[@id='basic']/div[2]/div/div/div/div/div/div/div/div[2]/button/span", "xpath:idRelative"],
+        ["xpath=//div[2]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5a502b2e-e9a5-4fce-8ed3-83b6aff6cf42",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div/div/div/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'สมัครสมาชิกสำเร็จ')]", "xpath:innerText"]
+      ],
+      "value": "สมัครสมาชิกสำเร็จ"
+    }]
+  }, {
+    "id": "57f05b82-130f-4309-a744-b1783c56e4dd",
+    "name": "CreateMember_Fail - Phone",
+    "commands": [{
+      "id": "7ef391a0-af21-4f3f-a8e6-8d8c9257b926",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/member/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "00abc900-87d3-4c3b-9169-f2661bf10e65",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomFirstName",
+      "targets": [
+        ["id=randomFirstName", "id"],
+        ["css=#randomFirstName", "css:finder"],
+        ["xpath=//input[@id='randomFirstName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[2]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "b"
+    }, {
+      "id": "125f16fe-a146-4bc6-9b2c-f704599b2163",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomLastName",
+      "targets": [
+        ["id=randomLastName", "id"],
+        ["css=#randomLastName", "css:finder"],
+        ["xpath=//input[@id='randomLastName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[3]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "b"
+    }, {
+      "id": "60cf9f77-8578-4231-8524-35a248169f49",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomPhoneNumber",
+      "targets": [
+        ["id=randomPhoneNumber", "id"],
+        ["css=#randomPhoneNumber", "css:finder"],
+        ["xpath=//input[@id='randomPhoneNumber']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[4]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "0909099993"
+    }, {
+      "id": "89a2c1f9-b705-413f-a21c-05e0b3f936fb",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'เบอร์โทรศัพท์นี้มีอยู่ในระบบแล้ว')]", "xpath:innerText"]
+      ],
+      "value": "เบอร์โทรศัพท์นี้มีอยู่ในระบบแล้ว"
+    }]
+  }, {
+    "id": "ddc72f92-acc6-4c85-a5e9-187e705506e6",
+    "name": "CreateMember_Fail - NationalID",
+    "commands": [{
+      "id": "7761f486-633d-4c4a-9f96-9747454f5389",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/member/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "899932e3-9337-43a3-be92-1779d933b83e",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomFirstName",
+      "targets": [
+        ["id=randomFirstName", "id"],
+        ["css=#randomFirstName", "css:finder"],
+        ["xpath=//input[@id='randomFirstName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[2]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "b"
+    }, {
+      "id": "76b2d237-2dc0-4786-9be5-e599407fa8fa",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomLastName",
+      "targets": [
+        ["id=randomLastName", "id"],
+        ["css=#randomLastName", "css:finder"],
+        ["xpath=//input[@id='randomLastName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[3]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "b"
+    }, {
+      "id": "b50080f3-bb2f-43f4-9573-e3a3bbd569bf",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomNationalID",
+      "targets": [
+        ["id=randomNationalID", "id"],
+        ["css=#randomNationalID", "css:finder"],
+        ["xpath=//input[@id='randomNationalID']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[5]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "1221211111113"
+    }, {
+      "id": "4a360117-771d-431c-ad68-48462c2b95b5",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'รหัสบัตรประชาชนซ้ำ')]", "xpath:innerText"]
+      ],
+      "value": "รหัสบัตรประชาชนซ้ำ"
+    }]
+  }, {
+    "id": "bb9b86ad-8e8e-4694-989f-af5c0a3cbe0b",
+    "name": "CreateMember_Fail - Email",
+    "commands": [{
+      "id": "f16e3b17-6bf8-4437-bad7-ca300f41e658",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/member/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c1082541-2f99-49cd-b758-ef3388bb0b7f",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomFirstName",
+      "targets": [
+        ["id=randomFirstName", "id"],
+        ["css=#randomFirstName", "css:finder"],
+        ["xpath=//input[@id='randomFirstName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[2]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "b"
+    }, {
+      "id": "e5456bef-a5a4-48ce-a607-8cffbeb8b608",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomLastName",
+      "targets": [
+        ["id=randomLastName", "id"],
+        ["css=#randomLastName", "css:finder"],
+        ["xpath=//input[@id='randomLastName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[3]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "b"
+    }, {
+      "id": "5cd63741-96b8-46ed-b006-27675ae7b433",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_Email",
+      "targets": [
+        ["id=basic_Email", "id"],
+        ["css=#basic_Email", "css:finder"],
+        ["xpath=//input[@id='basic_Email']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[6]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "cb@stayease.com"
+    }, {
+      "id": "bc0ed8dc-ada8-443f-a409-26ccd05f96eb",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'อีเมลนี้มีอยู่ในระบบแล้ว')]", "xpath:innerText"]
+      ],
+      "value": "อีเมลนี้มีอยู่ในระบบแล้ว"
+    }]
+  }, {
+    "id": "3148231f-bf73-4c80-af4f-27daa8e534fb",
+    "name": "CreateEmployee_Success",
+    "commands": [{
+      "id": "9930f79a-50ad-46be-8b82-78d6d810abe2",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/employee/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "836bf34e-1b48-4d49-8e83-6d98d1b28a41",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_FirstName",
+      "targets": [
+        ["id=basic_FirstName", "id"],
+        ["css=#basic_FirstName", "css:finder"],
+        ["xpath=//input[@id='basic_FirstName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[2]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "c"
+    }, {
+      "id": "ac03f9da-53aa-4207-825a-ca1e79a95680",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_LastName",
+      "targets": [
+        ["id=basic_LastName", "id"],
+        ["css=#basic_LastName", "css:finder"],
+        ["xpath=//input[@id='basic_LastName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[3]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "d"
+    }, {
+      "id": "1b8cb515-fac8-41c9-963a-ee8d7dbcd74c",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomPhoneNumber",
+      "targets": [
+        ["id=randomPhoneNumber", "id"],
+        ["css=#randomPhoneNumber", "css:finder"],
+        ["xpath=//input[@id='randomPhoneNumber']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[4]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "0123131231"
+    }, {
+      "id": "8b4e6b45-a2f7-4218-9b40-f96252378322",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomNationalID",
+      "targets": [
+        ["id=randomNationalID", "id"],
+        ["css=#randomNationalID", "css:finder"],
+        ["xpath=//input[@id='randomNationalID']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[5]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "1231231312312"
+    }, {
+      "id": "4486b6e4-c39b-45b3-afc5-5fe2b57e23e6",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_Email",
+      "targets": [
+        ["id=basic_Email", "id"],
+        ["css=#basic_Email", "css:finder"],
+        ["xpath=//input[@id='basic_Email']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[6]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "cd@stayease.com"
+    }, {
+      "id": "65cad408-b5f6-4b0c-9a83-86ca606a2f73",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_Password",
+      "targets": [
+        ["id=basic_Password", "id"],
+        ["css=#basic_Password", "css:finder"],
+        ["xpath=//input[@id='basic_Password']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[7]/div/div/div[2]/div/div/span/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/span/input", "xpath:position"]
+      ],
+      "value": "123456"
+    }, {
+      "id": "608c8aa1-03b4-4549-bdd1-69e8cfca98f9",
+      "comment": "",
+      "command": "click",
+      "target": "id=basic_GenderID",
+      "targets": [
+        ["id=basic_GenderID", "id"],
+        ["css=#basic_GenderID", "css:finder"],
+        ["xpath=//input[@id='basic_GenderID']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[8]/div/div/div[2]/div/div/div/div/span/span/input", "xpath:idRelative"],
+        ["xpath=//span/span/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "19834972-7985-4f3f-89c1-4efe2b2ae74c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-select-item-option-active > .ant-select-item-option-content",
+      "targets": [
+        ["css=.ant-select-item-option-active > .ant-select-item-option-content", "css:finder"],
+        ["xpath=//div/div/div[2]/div/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6f6f03aa-8d2c-4857-85b4-b05f77a5dc71",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,140)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2fb88d29-21c5-45f6-a63a-300f975e88f2",
+      "comment": "",
+      "command": "click",
+      "target": "id=basic_PositionID",
+      "targets": [
+        ["id=basic_PositionID", "id"],
+        ["css=#basic_PositionID", "css:finder"],
+        ["xpath=//input[@id='basic_PositionID']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[9]/div/div/div[2]/div/div/div/div/span/span/input", "xpath:idRelative"],
+        ["xpath=//div[9]/div/div/div[2]/div/div/div/div/span/span/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4df6f12d-4cf8-4b8e-8465-c7ec069a0444",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-select-item:nth-child(4) > .ant-select-item-option-content",
+      "targets": [
+        ["css=.ant-select-item:nth-child(4) > .ant-select-item-option-content", "css:finder"],
+        ["xpath=//div/div/div[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f4eb6271-31d3-4633-8b89-008d0a412331",
+      "comment": "",
+      "command": "type",
+      "target": "name=file",
+      "targets": [
+        ["id=basic_Password", "id"],
+        ["css=#basic_Password", "css:finder"],
+        ["xpath=//input[@id='basic_Password']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[7]/div/div/div[2]/div/div/span/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/span/input", "xpath:position"]
+      ],
+      "value": "D:\\GitHub\\SE-Project\\frontend\\src\\assets\\logo.png"
+    }, {
+      "id": "464de8df-faf3-48d6-baa5-68d194b2331d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-btn:nth-child(2) > span",
+      "targets": [
+        ["css=.ant-btn:nth-child(2) > span", "css:finder"],
+        ["xpath=//button[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "25c7455d-790f-4a1b-8b63-802851f22488",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ant-btn-primary > span",
+      "targets": [
+        ["css=.ant-btn-primary > span", "css:finder"],
+        ["xpath=//form[@id='basic']/div[2]/div/div/div/div/div/div/div/div[2]/button/span", "xpath:idRelative"],
+        ["xpath=//div[2]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c6b4c1e5-f367-41af-9428-8a516f07366e",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.ant-btn-primary > span",
+      "targets": [
+        ["css=.ant-btn-primary > span", "css:finder"],
+        ["xpath=//form[@id='basic']/div[2]/div/div/div/div/div/div/div/div[2]/button/span", "xpath:idRelative"],
+        ["xpath=//div[2]/button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "52c52bd8-163b-4444-81e0-5b2bbb73c187",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.ant-btn > span:nth-child(3)",
+      "targets": [
+        ["css=.ant-btn > span:nth-child(3)", "css:finder"],
+        ["xpath=//form[@id='basic']/div[2]/div/div/div/div/div/div/div/div[2]/button/span[2]", "xpath:idRelative"],
+        ["xpath=//button/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "303d11de-deb0-4b0c-a6fb-1f268cab1d4a",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.ant-btn-primary",
+      "targets": [
+        ["css=.ant-btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div[2]/div/div/div/div/div/div/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a7cf2651-cee0-44f6-bbd2-e449179fb397",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.ant-btn-primary",
+      "targets": [
+        ["css=.ant-btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div[2]/div/div/div/div/div/div/div/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'ยืนยัน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "82d7cdbf-b47b-4854-8ad2-558b83be9b93",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div/div/div/div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'ลงทะเบียนพนักงานสำเร็จ')]", "xpath:innerText"]
+      ],
+      "value": "ลงทะเบียนพนักงานสำเร็จ"
+    }]
+  }, {
+    "id": "58ae18d4-2c5e-4a27-8325-6ce3c5b446cb",
+    "name": "CreateEmployee_Fail - Phone",
+    "commands": [{
+      "id": "da8848f5-9d51-442d-9528-a084c88d6ea7",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/employee/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4da3e68b-e697-4b3f-9202-3c573b938414",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_FirstName",
+      "targets": [
+        ["id=basic_FirstName", "id"],
+        ["css=#basic_FirstName", "css:finder"],
+        ["xpath=//input[@id='basic_FirstName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[2]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "c"
+    }, {
+      "id": "04a33302-36ce-4e3b-8b65-4d2036d10c22",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_LastName",
+      "targets": [
+        ["id=basic_LastName", "id"],
+        ["css=#basic_LastName", "css:finder"],
+        ["xpath=//input[@id='basic_LastName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[3]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "d"
+    }, {
+      "id": "e0e81da9-eab1-4c80-a35d-da21211c35a3",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomPhoneNumber",
+      "targets": [
+        ["id=randomPhoneNumber", "id"],
+        ["css=#randomPhoneNumber", "css:finder"],
+        ["xpath=//input[@id='randomPhoneNumber']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[4]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "0123131231"
+    }, {
+      "id": "bcd6d5bb-d1b0-4b2d-8574-d0b3bbf7b184",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'เบอร์โทรศัพท์นี้มีอยู่ในระบบแล้ว')]", "xpath:innerText"]
+      ],
+      "value": "เบอร์โทรศัพท์นี้มีอยู่ในระบบแล้ว"
+    }]
+  }, {
+    "id": "9aacd237-8905-4807-9539-ef25e09900a9",
+    "name": "CreateEmployee_Fail - NationalID",
+    "commands": [{
+      "id": "a987d01c-e880-4054-be7e-e7d6d36638e6",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/employee/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6d8b15d4-102d-4386-9dc9-020160de1597",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_FirstName",
+      "targets": [
+        ["id=basic_FirstName", "id"],
+        ["css=#basic_FirstName", "css:finder"],
+        ["xpath=//input[@id='basic_FirstName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[2]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "c"
+    }, {
+      "id": "37cef162-643d-4cca-b057-956e58c8303c",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_LastName",
+      "targets": [
+        ["id=basic_LastName", "id"],
+        ["css=#basic_LastName", "css:finder"],
+        ["xpath=//input[@id='basic_LastName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[3]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "d"
+    }, {
+      "id": "9ef4278a-14f2-40fa-8c2d-e27f15d074c6",
+      "comment": "",
+      "command": "type",
+      "target": "id=randomNationalID",
+      "targets": [
+        ["id=randomNationalID", "id"],
+        ["css=#randomNationalID", "css:finder"],
+        ["xpath=//input[@id='randomNationalID']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[5]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "1231231312312"
+    }, {
+      "id": "1f2b87e7-23b7-4ac9-9793-9c8442eef561",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'รหัสบัตรประชาชนซ้ำ')]", "xpath:innerText"]
+      ],
+      "value": "รหัสบัตรประชาชนซ้ำ"
+    }]
+  }, {
+    "id": "9cb3772b-1eff-4000-ac6e-35beeea5094a",
+    "name": "CreateEmployee_Fail - Email",
+    "commands": [{
+      "id": "018327fb-ce3c-4544-bc98-95fde33b1d1c",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:5173/employee/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "11821321-a1c6-488c-a683-1fe5a6ccd5d6",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_FirstName",
+      "targets": [
+        ["id=basic_FirstName", "id"],
+        ["css=#basic_FirstName", "css:finder"],
+        ["xpath=//input[@id='basic_FirstName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[2]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "c"
+    }, {
+      "id": "7e982c4c-ab6c-4c35-8c1b-98557786c57d",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_LastName",
+      "targets": [
+        ["id=basic_LastName", "id"],
+        ["css=#basic_LastName", "css:finder"],
+        ["xpath=//input[@id='basic_LastName']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[3]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "d"
+    }, {
+      "id": "aef25249-478c-4047-9469-698ec7128402",
+      "comment": "",
+      "command": "type",
+      "target": "id=basic_Email",
+      "targets": [
+        ["id=basic_Email", "id"],
+        ["css=#basic_Email", "css:finder"],
+        ["xpath=//input[@id='basic_Email']", "xpath:attributes"],
+        ["xpath=//form[@id='basic']/div/div[6]/div/div/div[2]/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/div[2]/div/div/input", "xpath:position"]
+      ],
+      "value": "cd@stayease.com"
+    }, {
+      "id": "ef878100-ff02-4aa0-b818-68b50ea1e743",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ant-message-custom-content > span:nth-child(2)",
+      "targets": [
+        ["css=.ant-message-custom-content > span:nth-child(2)", "css:finder"],
+        ["xpath=//div/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'อีเมลนี้มีอยู่ในระบบแล้ว')]", "xpath:innerText"]
+      ],
+      "value": "อีเมลนี้มีอยู่ในระบบแล้ว"
+    }]
+  }],
+  "suites": [{
+    "id": "a4136db6-0081-4ffa-9352-a4f737f7b2c2",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["101d6d01-95e3-4953-ae05-03c51f225dca"]
+  }],
+  "urls": ["http://localhost:5173/room"],
+  "plugins": []
+}

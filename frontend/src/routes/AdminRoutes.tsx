@@ -8,6 +8,8 @@ const LoginPages = Loadable(lazy(() => import("../components/Pages/login/login")
 const Dashboard = Loadable(lazy(() => import("../components/Pages/dashboard/dashboard")))
 
 const Room = Loadable(lazy(() => import("../components/Pages/Room/index")))
+const FacilityManager = Loadable(lazy(() => import("../components/Pages/Facility/Manager/index")))
+const FacilityBooking = Loadable(lazy(() => import("../components/Pages/Facility/Member/index")))
 
 const ProfileEdit = Loadable(lazy(() => import("../components/Pages/ProfileEdit/profileEdit")))
 const ChangePassword = Loadable(lazy(() => import("../components/Pages/ProfileEdit/changePassword")))
@@ -19,6 +21,8 @@ const EditEmployee = Loadable(lazy(() => import("../components/Pages/Employee/ed
 const Member = Loadable(lazy(() => import("../components/Pages/Member/member")))
 const CreateMember = Loadable(lazy(() => import("../components/Pages/Member/create/createMember")))
 const EditMember = Loadable(lazy(() => import("../components/Pages/Member/edit/editMember")))
+
+
 // const ProfileEdit = Loadable(lazy(() => import("")))
 
 const AdminRoutes = (isLoggedIn: boolean, role: string): RouteObject => {
@@ -69,8 +73,19 @@ const AdminRoutes = (isLoggedIn: boolean, role: string): RouteObject => {
             path: "/changePassword",
             element: <ChangePassword />,
         },
+        {
+            path: "/booking",
+            element: <FacilityBooking />,
+        },
 
-        ...(role === "IT" ? [
+        ...(role === "Employee" || role === "Manager" ? [
+          // {
+          //   path: "/room",
+          //   element: <Room />,
+          // },
+        ] : []),
+
+        ...(role === "Manager" ? [
           {
             path: "/employee",
             children: employeeRoutes,
@@ -83,6 +98,10 @@ const AdminRoutes = (isLoggedIn: boolean, role: string): RouteObject => {
             path: "/room",
             element: <Room/>,
           },
+          {
+            path: "/facilityarea",
+            element: <FacilityManager/>,
+          }
         ] : []),
 
         ]

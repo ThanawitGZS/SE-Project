@@ -4,6 +4,7 @@ import { EmployeeInterface } from "../../interfaces/Employee";
 import { ChangePasswordInterface } from "../../interfaces/ChangePassword";
 import { MemberInterface } from "../../interfaces/Member";
 import { RoomInterface } from "../../interfaces/Room";
+import { FacilityInterface } from "../../interfaces/Facility";
 
 const apiUrl = "http://localhost:8000";
 const Authorization = localStorage.getItem("token");
@@ -104,6 +105,13 @@ async function GetGenders() {
 async function GetPositions() {
   return await axios
     .get(`${apiUrl}/positions`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function GetPositionEmployee() {
+  return await axios
+    .get(`${apiUrl}/positionEmployee`, requestOptions)
     .then((res) => res)
     .catch((e) => e.response);
 }
@@ -218,6 +226,95 @@ async function GetPetAllows() {
     .catch((e) => e.response);
 }
 
+// Facility
+
+async function CreateFacility(data: FacilityInterface) {
+  return await axios
+    .post(`${apiUrl}/facility`, data, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function UpdateFacility(id: string | undefined, data: FacilityInterface) {
+  return await axios
+    .patch(`${apiUrl}/facility/${id}`, data, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function DeleteFacilityByID(id: string | undefined) {
+  return await axios
+    .delete(`${apiUrl}/facility/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function GetFacilitys() {
+  return await axios
+    .get(`${apiUrl}/facilitys`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function GetFacilityOpen() {
+  return await axios
+    .get(`${apiUrl}/facilityOpen`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function GetFacilityByID(id: string | undefined) {
+  return await axios
+    .get(`${apiUrl}/facility/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function CheckFacilityName(facilityName: string) {
+  return await axios
+    .post(`${apiUrl}/checkFacilityName/${facilityName}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+// FacilityType
+async function GetFacilityType() {
+  return await axios
+    .get(`${apiUrl}/facilitytype`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+// FacilityStatus
+async function GetFacilityStatus() {
+  return await axios
+    .get(`${apiUrl}/facilitystatus`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+// Booking
+async function GetBookings() {
+  return await axios
+    .get(`${apiUrl}/bookings`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function CreateBooking(data: RoomInterface) {
+  return await axios
+    .post(`${apiUrl}/booking`, data, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function DeleteBookingByID(id: string | undefined) {
+  return await axios
+    .delete(`${apiUrl}/facility/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
 export {
   SignIn,
   
@@ -233,6 +330,7 @@ export {
   CheckNationalID,
   GetGenders,
   GetPositions,
+  GetPositionEmployee,
 
   CreateMember,
   GetMembers,
@@ -249,4 +347,19 @@ export {
   GetRoomByID,
   GetPetAllows,
   GetRoomTypes,
+
+  CreateFacility,
+  UpdateFacility,
+  DeleteFacilityByID,
+  GetFacilitys,
+  GetFacilityOpen,
+  GetFacilityByID,
+  CheckFacilityName,
+  GetFacilityType,
+  GetFacilityStatus,
+
+  CreateBooking,
+  DeleteBookingByID,
+  GetBookings,
+
 }

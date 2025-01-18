@@ -16,7 +16,7 @@ import {
 import { PlusOutlined } from "@ant-design/icons";
 
 import { EmployeeInterface } from "../../../../interfaces/Employee";
-import { CreateEmployee, GetPositions, GetGenders, CheckEmail , CheckPhone , CheckNationalID} from "../../../../services/https";
+import { CreateEmployee, GetPositionEmployee, GetGenders, CheckEmail , CheckPhone , CheckNationalID} from "../../../../services/https";
 import { useNavigate, Link } from "react-router-dom";
 import { GenderInterface } from "../../../../interfaces/Gender";
 import { PositionInterface } from "../../../../interfaces/Position";
@@ -36,7 +36,6 @@ function EmployeeCreate() {
 
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  // New state to handle preview modal
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
@@ -89,10 +88,6 @@ function EmployeeCreate() {
     form.setFieldsValue({ NationalId: value });
     setNationalIDInvalid(false); // Reset invalid flag when ID changes
   
-    // if (value.length === 13) {
-    //   // ตรวจสอบรหัสบัตรประชาชนเมื่อมี 13 หลัก
-    //   await checkNationalID(value);
-    // }
     await checkNationalID(value);
   };
 
@@ -186,7 +181,8 @@ function EmployeeCreate() {
       const res = await GetGenders(); // Fetch data from the API
 
       if (res.status === 200) {
-        setGenders(res.data); // Set the data from the API response
+        const filteredData = (res.data as GenderInterface[]).filter((item) => item.ID !== 6);
+        setGenders(filteredData);
       } else {
         setGenders([]);
         messageApi.error(res.data.error || "ไม่สามารถดึงข้อมูลได้");
@@ -200,7 +196,7 @@ function EmployeeCreate() {
   // Fetch positions from API
   const getPositions = async () => {
     try {
-      const res = await GetPositions(); // Fetch data from the API
+      const res = await GetPositionEmployee(); // Fetch data from the API
 
       if (res.status === 200) {
         setPositions(res.data); // Set the data from the API response

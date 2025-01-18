@@ -56,11 +56,27 @@ func main() {
         r.GET("/roomtypes", controller.GetRoomTypes) //RoomType
         r.GET("/petallows", controller.GetPetAllows) //PetAllow
 
+        // Facility Routes
+        r.POST("/facility", controller.CreateFacility)
+        r.PATCH("/facility/:id", controller.UpdateFacility)
+        r.DELETE("/facility/:id", controller.DeleteFacility)
+        r.GET("/facility/:id", controller.GetFacilityByID)
+        r.GET("/facilitys", controller.GetFacilitys)
+        r.GET("/facilityOpen", controller.GetFacilityOpen)
+        r.POST("/checkFacilityName/:facilityName", controller.CheckFacilityName)
+        r.GET("/facilitystatus", controller.GetFacilityStatus)
+        r.GET("/facilitytype", controller.GetFacilityTypes)
+
+        r.POST("/booking", controller.CreateBooking)
+        r.DELETE("/booking/:id", controller.DeleteBookingByID)
+        r.GET("/bookings", controller.GetBookings)
+
         // Gender Routes
         r.GET("/genders", controller.GetGenders)
 
         // Position Routes
         r.GET("/positions", controller.GetPositions)
+        r.GET("/positionEmployee", controller.GetPositionEmployee)
 
 }
 

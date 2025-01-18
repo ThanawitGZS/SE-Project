@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Layout, ConfigProvider, MenuProps, Menu, message  , Dropdown } from 'antd';
-import { IdcardOutlined, TeamOutlined, AppstoreOutlined , LogoutOutlined , HomeOutlined , SmileOutlined , RobotOutlined , ProductOutlined } from '@ant-design/icons';
+import { Layout, ConfigProvider, MenuProps, Menu, message, Modal , Dropdown } from 'antd';
+import { BookOutlined, HomeOutlined, AppstoreOutlined, LogoutOutlined, SearchOutlined , UserOutlined , ProductOutlined} from '@ant-design/icons';
 import Logo from '../../assets/logo.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'antd/dist/reset.css';
-import "../Header/index.css";
 
 import { PositionInterface } from '../../interfaces/Position';
 import { GetPositions } from '../../services/https';
@@ -69,101 +68,27 @@ function HeaderComponent() {
   
   const items: MenuItem[] = [
     {
-      label: "สมาชิก", // ชื่อเมนูหลัก
-      key: "Member",
-      icon: <TeamOutlined />,
-      popupClassName: "custom-submenu", // คลาสสำหรับเมนูย่อย
-      children: [
-        {
-          label: <Link to="/employee">พนักงาน</Link>, // ลิงก์ไปยังหน้า "รายชื่อสมาชิก"
-          key: "employee",
-          icon: <RobotOutlined />,
-        },
-        {
-          label: <Link to="/member">ผู้พักอาศัย</Link>, // ลิงก์ไปยังหน้า "เพิ่มสมาชิก"
-          key: "member",
-          icon: <SmileOutlined />,
-        },
-      ],
-    },
-    {
       label: "การจัดการ",
       key: "Mangae",
       icon: <AppstoreOutlined />,
       popupClassName: "custom-submenu",
       children: [
         {
-          label: <Link to="/room">ห้องพัก</Link>,
-          key: "Room",
+          label: <Link to="/">A</Link>,
+          key: "A",
           icon: <HomeOutlined />,
         },
         {
-          label: <Link to="/facilityarea">พื้นที่ส่วนกลาง</Link>,
-          key: "Facility",
+          label: <Link to="/">B</Link>,
+          key: "B",
           icon: <ProductOutlined />,
         },
-        {
-          label: <Link to="/">สัญญาเช่า</Link>,
-          key: "Contract",
-          icon: <SmileOutlined />,
-        },
-        {
-          label: <Link to="/">พัสดุ</Link>,
-          key: "Parcel",
-          icon: <SmileOutlined />,
-        },
       ],
     },
     {
-      label: "ค่าใช้จ่ายและบิล",
-      key: "Bill",
-      icon: <TeamOutlined />,
-      popupClassName: "custom-submenu",
-      children: [
-        {
-          label: <Link to="/">จดมิตเตอร์</Link>,
-          key: "A",
-          icon: <RobotOutlined />,
-        },
-        {
-          label: <Link to="/">ค่าใช่จ่ายเพิ่มเติม</Link>,
-          key: "B",
-          icon: <SmileOutlined />,
-        },
-        {
-          label: <Link to="/">อัตราค่าบริการ</Link>,
-          key: "C",
-          icon: <SmileOutlined />,
-        },
-        {
-          label: <Link to="/">จัดการบิล</Link>,
-          key: "D",
-          icon: <SmileOutlined />,
-        },
-      ],
-    },
-    {
-      label: "บริการ",
-      key: "Serve",
-      icon: <TeamOutlined />,
-      popupClassName: "custom-submenu",
-      children: [
-        {
-          label: <Link to="/">ตรวจสอบการเงิน</Link>,
-          key: "Money",
-          icon: <RobotOutlined />,
-        },
-        {
-          label: <Link to="/">มอบหมายงาน</Link>,
-          key: "Work",
-          icon: <SmileOutlined />,
-        },
-        {
-          label: <Link to="/">รายงานการทำงาน</Link>,
-          key: "Report",
-          icon: <SmileOutlined />,
-        },
-      ],
+      label: <Link to="/">รายงานการทำงาน</Link>,
+      key: "C",
+      icon: <HomeOutlined />,
     },
   ];
   
@@ -188,7 +113,7 @@ function HeaderComponent() {
   
   const profileMenu = (
     <Menu onClick={onClick}>
-      <Menu.Item key="profile" icon={<IdcardOutlined />}>
+      <Menu.Item key="profile" icon={<UserOutlined />}>
         <Link to="/profileEdit">จัดการโปรไฟล์</Link>
       </Menu.Item>
       <Menu.Item key="logout" icon={<LogoutOutlined />}>
@@ -240,14 +165,13 @@ function HeaderComponent() {
             />
           </Link>
         </div>
-
         <ConfigProvider
           theme={{
             components: {
               Menu: {
                 iconSize: 18,
-                itemColor: '#FFFFFF', 
-                // itemHoverColor: '#0F0F0F',
+                itemColor: '#f0f0f0',
+                itemHoverColor: '#D3AC2B',
                 colorPrimary: 'none',
               },
             },

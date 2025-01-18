@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { Col, Row, Card, Select, Input , Form , Modal, Space , Button , message , Divider , InputNumber , Dropdown , Table } from "antd";
-import { PlusOutlined, DeleteOutlined, EditOutlined, DashOutlined  } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Col, Row, Card, Select, Input , Form , Modal, Space , Button , message , Divider , InputNumber , Dropdown , Table , Radio , Pagination } from "antd";
+import { PlusSquareOutlined , DeleteOutlined, EditOutlined, SettingOutlined , InboxOutlined , CheckCircleOutlined , UserOutlined , ToolOutlined , FrownOutlined , SmileOutlined} from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 
 import { RoomInterface } from "../../../interfaces/Room";
 import { RoomTypeInterface } from "../../../interfaces/RoomType";
 import { PetAllowInterface } from "../../../interfaces/PetAllow";
+
+import '../Room/index.css'
 
 import { GetRoomTypes , GetRooms , GetRoomByID , GetPetAllows , CreateRoom, CheckRoomName , DeleteRoomByID , UpdateRoom } from "../../../services/https";
 
@@ -15,14 +16,58 @@ export default function Room() {
     const [petallows, setPetAllows] = useState<PetAllowInterface[]>([]);
     const [rooms, setRooms] = useState<RoomInterface[]>([]);
     const employeeID = localStorage.getItem("employeeID");
-    const [form] = Form.useForm();
+    const [formCreate] = Form.useForm();
+    const [formUpdate] = Form.useForm();
     const [roomID,setRoomID] = useState<string>("");
     const [messageApi, contextHolder] = message.useMessage();
+    const [rname,setRName] = useState("");
     
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmittingUpdate, setIsSubmittingUpdate] = useState(false);
-    const [roomLimitInvalid, setRoomLimitInvalid] = useState(true);
+    const [roomLimitInvalid, setRoomLimitInvalid] = useState(false);
     const [roomNameInvalid, setRoomNameInvalid] = useState(false); 
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [statusFilter, setStatusFilter] = useState<string | null>(null);
+    const [petAllowFilter, setPetAllowFilter] = useState<string | null>(null);
+    const [minPrice, setMinPrice] = useState<number>(0); // ราคาขั้นต่ำ
+    const [maxPrice, setMaxPrice] = useState<number>(100000); // ราคาขั้นสูง
+    const { Option } = Select; // นำเข้า Option จาก Select โดยตรง
+    const pageSize = 6;
+
+    const filteredRooms = rooms.filter((room) => {
+        // ดึงข้อมูล RoomType จาก RoomTypeID
+        const roomType = roomtypes.find((type) => type.ID === room.RoomTypeID);
+        const roomStatus = roomType ? roomType.Name : "ไม่ทราบ";
+        const matchesPrice = room.RoomRent !== undefined && room.RoomRent >= minPrice && room.RoomRent <= maxPrice;
+        const petAllowStatus = petallows.find((allow) => allow.ID === room.PetAllowID)?.Name || "ไม่ทราบ";
+        
+        // กรองตามชื่อห้อง
+        const matchesSearch = (room.RoomName || "").toLowerCase().includes(searchTerm.toLowerCase());
+
+        // กรองตามสถานะ
+        const matchesStatus = statusFilter ? roomStatus === statusFilter : true;
+        const matchesPetAllow = petAllowFilter ? petAllowStatus === petAllowFilter : true;
+    
+        return matchesSearch && matchesStatus && matchesPetAllow && matchesPrice;
+    });
+
+    // Helper functions to get related data
+    const getRoomTypeName = (roomTypeID: number) =>
+        roomtypes.find((type) => type.ID === roomTypeID)?.Name || "Unknown";
+
+    // เรียงข้อมูลก่อน Render
+    const sortedRooms = filteredRooms.sort((a, b) => {
+        const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+        return collator.compare(a.RoomName || "", b.RoomName || "");
+    });
+
+    // สร้าง Pagination
+    const paginatedRooms = sortedRooms.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+    );
 
     const getRoomTypes = async () => {
         try {
@@ -58,7 +103,7 @@ export default function Room() {
     
     // State สำหรับควบคุม Modal
     const [isModalOpenCreate, setIsModalOpenCreate] = useState(false);
-    const [isModalOpenDeleate, setIsModalOpenDeleate] = useState(false);
+    const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
     const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
     const [selectedRoomID, setSelectRoomID] = useState<string | null>(null);
 
@@ -67,6 +112,11 @@ export default function Room() {
     };
 
     const handleCancelCreateRoom = () => {
+        formCreate.resetFields();
+        formUpdate.resetFields();
+        setIsSubmitting(false);
+        setRoomNameInvalid(false);
+        setRoomLimitInvalid(false);
         setIsModalOpenCreate(false);
     };
     
@@ -75,7 +125,8 @@ export default function Room() {
         if (res.status === 200) {
             const RoomID = res.data.ID;
             setRoomID(RoomID);
-            form.setFieldsValue({
+            setRName(res.data.RoomName);
+            formUpdate.setFieldsValue({
                 RoomName: res.data.RoomName,
                 RoomRent: res.data.RoomRent,
                 RoomLimit: res.data.RoomLimit,
@@ -92,11 +143,22 @@ export default function Room() {
     };
     
     const handleCancelUpdateRoom = () => {
-        form.resetFields();
+        formUpdate.resetFields();
+        formCreate.resetFields();
+        setIsSubmittingUpdate(false);
+        setRoomNameInvalid(false);
         setIsModalOpenUpdate(false);
     };
 
     const onFinishUpdate = async (values: RoomInterface) => {
+        setIsSubmittingUpdate(true);
+        // ตรวจสอบค่า employeeID
+        if (!employeeID) {
+            messageApi.error("ไม่พบข้อมูลพนักงาน");
+            setIsModalOpenUpdate(false);
+            return;
+        }
+        values.EmployeeID = parseInt(employeeID, 10);
         try {
             const res = await UpdateRoom(roomID, values);
             if (res.status === 200) {
@@ -113,18 +175,19 @@ export default function Room() {
         }catch{
             messageApi.error("เกิดข้อผิดพลาดในการแก้ไขข้อมูลห้องพัก");
         }finally{
-            form.resetFields();
+            formUpdate.resetFields();
             setIsModalOpenUpdate(false);
+            setIsSubmittingUpdate(false);
             getRooms();
         }
     };
 
     const showDeleteConfirmModal = (id: string) => {
         setSelectRoomID(id);
-        setIsModalOpenDeleate(true);
+        setIsModalOpenDelete(true);
     };
 
-    const handleDeleteMember = async () => {
+    const handleDeleteRoom = async () => {
         if (selectedRoomID) {
           try {
             const res = await DeleteRoomByID(selectedRoomID);
@@ -137,7 +200,7 @@ export default function Room() {
           } catch (error) {
             messageApi.error("เกิดข้อผิดพลาดในการลบข้อมูล");
           } finally {
-            setIsModalOpenDeleate(false);
+            setIsModalOpenDelete(false);
             setSelectRoomID(null);
           }
         }
@@ -170,7 +233,7 @@ export default function Room() {
         } catch (error) {
             messageApi.error("เกิดข้อผิดพลาดในการสร้างห้องพัก");
         } finally {
-            form.resetFields();
+            formCreate.resetFields();
             setIsSubmitting(false);
             setIsModalOpenCreate(false);
             getRooms();
@@ -179,7 +242,7 @@ export default function Room() {
 
     const handleRoomNameChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        form.setFieldsValue({ RoomName: value });
+        formCreate.setFieldsValue({ RoomName: value });
         setRoomNameInvalid(false);
     
         if (value.length >= 1) {
@@ -187,9 +250,19 @@ export default function Room() {
         }
     };
 
-    const checkRoomName = async (phoneNumber: string) => {
+    const handleRoomNameChangeUpdate = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        formCreate.setFieldsValue({ RoomName: value });
+        setRoomNameInvalid(false);
+    
+        if (value.length >= 1 && rname != value) {
+            await checkRoomName(value);
+        }
+    };
+
+    const checkRoomName = async (name: string) => {
         try {
-          const res = await CheckRoomName(phoneNumber);
+          const res = await CheckRoomName(name);
           if (res.status === 200) {
             if (res.data.isValid) {
                 setRoomNameInvalid(false); 
@@ -200,7 +273,7 @@ export default function Room() {
               return false;
             }
           } else {
-            messageApi.error(res.data.error || "ไม่สามารถตรวจชื่อห้องได้ได้");
+            messageApi.error(res.data.error || "ไม่สามารถตรวจชื่อห้องได้");
             return false;
           }
         } catch (error) {
@@ -212,7 +285,7 @@ export default function Room() {
     const handleRoomLimitChange = async (value: number | null) => {
         if (value !== null) {
             // อัปเดตค่าฟอร์มใน Form.Item
-            form.setFieldsValue({ roomlimit: value });
+            formCreate.setFieldsValue({ roomlimit: value });
     
             // ตรวจสอบว่าค่ามีเพียง 1 หลัก
             setRoomLimitInvalid(value.toString().length !== 1);
@@ -222,72 +295,72 @@ export default function Room() {
         }
     };
 
-    const columns: ColumnsType<RoomInterface> = [
-        {
-            title: "ลำดับ",
-            dataIndex: "ID",
-            key: "id",
-        },
-        {
-            title: "ชื่อห้องพัก",
-            dataIndex: "RoomName",
-            key: "room_name",
-        },
-        {
-            title: "ค่าเช่าห้องพัก [เดือน]",
-            dataIndex: "RoomRent",
-            key: "room_rent",
-        },
-        {
-            title: "จำนวนคนในการพักอาศัย",
-            dataIndex: "RoomLimit",
-            key: "room_limit",
-        },
-        {
-            title: "สถานะห้องพัก",
-            key: "RoomType",
-            render: (record) => <>{record.RoomType?.Name || "N/A"}</>,
-        },
-        {
-            title: "อนุญาตเลี้ยงสัตว์",
-            key: "PetAllow",
-            render: (record) => <>{record.PetAllow?.Name || "N/A"}</>,
-        },
-        {
-            title: "สมัครโดย",
-            key: "Employee",
-            render: (record) => <>{record.Employee?.FirstName || "ไม่เจอ"}</>,
-        },
-        {
-          title: "จัดการ",
-          render: (_record) => (
-            <Dropdown
-              menu={{
-                items: [
-                  {
-                    label: "แก้ไขข้อมูล",
-                    key: "1",
-                    icon: <EditOutlined />,
-                    onClick: () => showModalUpdateRoom(_record.ID),
-                  },
-                  {
-                    label: "ลบข้อมูล",
-                    key: "2",
-                    icon: <DeleteOutlined />,
-                    onClick: () => showDeleteConfirmModal(_record.ID),
-                    danger: true,
-                  },
-                ],
-              }}
-            >
-              <Button type="primary" icon={<DashOutlined />} size={"small"} className="btn" />
-            </Dropdown>
-          ),
-        },
+    // const columns: ColumnsType<RoomInterface> = [
+    //     {
+    //         title: "ชื่อห้องพัก",
+    //         dataIndex: "RoomName",
+    //         key: "room_name",
+    //         sorter: (a, b) => {
+    //             const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+    //             return collator.compare(a.RoomName || "", b.RoomName || "");
+    //         },
+    //         defaultSortOrder: "ascend", // เรียงจากน้อยไปมากโดยอัตโนมัติ
+    //     },
+    //     {
+    //         title: "ค่าเช่าห้องพัก [เดือน]",
+    //         dataIndex: "RoomRent",
+    //         key: "room_rent",
+    //     },
+    //     {
+    //         title: "จำนวนคนในการพักอาศัย",
+    //         dataIndex: "RoomLimit",
+    //         key: "room_limit",
+    //     },
+    //     {
+    //         title: "สถานะห้องพัก",
+    //         key: "RoomType",
+    //         render: (record) => <>{record.RoomType?.Name || "N/A"}</>,
+    //     },
+    //     {
+    //         title: "สถานะเลี้ยงสัตว์",
+    //         key: "PetAllow",
+    //         render: (record) => <>{record.PetAllow?.Name || "N/A"}</>,
+    //     },
+    //     {
+    //         title: "แก้ไข",
+    //         key: "Employee",
+    //         render: (record) => <>{record.Employee?.FirstName || "ไม่เจอ"}</>,
+    //     },
+    //     {
+    //       title: "จัดการ",
+    //       render: (_record) => (
+    //         <Dropdown
+    //           menu={{
+    //             items: [
+    //               {
+    //                 label: "แก้ไขข้อมูล",
+    //                 key: "1",
+    //                 icon: <EditOutlined />,
+    //                 onClick: () => showModalUpdateRoom(_record.ID),
+    //               },
+    //               {
+    //                 label: "ลบข้อมูล",
+    //                 key: "2",
+    //                 icon: <DeleteOutlined />,
+    //                 onClick: () => showDeleteConfirmModal(_record.ID),
+    //                 danger: true,
+    //               },
+    //             ],
+    //           }}
+    //         >
+    //           <Button type="primary" icon={<DashOutlined />} size={"small"} className="btn" />
+    //         </Dropdown>
+    //       ),
+    //     },
     
-    ];
+    // ];
     
-      const getRooms = async () => {
+const getRooms = async () => {
     try {
         const res = await GetRooms(); // Fetch data from the API
 
@@ -299,42 +372,247 @@ export default function Room() {
     } catch (error) {
         messageApi.error("เกิดข้อผิดพลาดในการดึงข้อมูล");
     }
-    };
+};
 
 useEffect(() => {
     getPetAllows();
     getRoomTypes();
     getRooms();
-  }, [ ]);
+}, [ ]);
 
-    return (
-        <div>
+useEffect(() => {
+    setCurrentPage(1); // รีเซ็ตหน้าแรกเมื่อ filter เปลี่ยน
+}, [ searchTerm, statusFilter, petAllowFilter, minPrice, maxPrice]);
+
+const getIconTypeRoom = (roomTypeID: number) => {
+    switch (roomTypeID) {
+      case 1:
+        return <Card  className="card-room-green" bodyStyle={{ padding: 8 }} >
+            {getRoomTypeName(roomTypeID ?? 0)}{" "}<CheckCircleOutlined />
+        </Card>;
+      case 2:
+        return <Card  className="card-room-blue" bodyStyle={{ padding: 8 }} >  
+                {getRoomTypeName(roomTypeID ?? 0)}{" "}<UserOutlined />
+        </Card>;
+      case 3:
+        return <Card  className="card-room-yellow" bodyStyle={{ padding: 8 }} >
+                {getRoomTypeName(roomTypeID ?? 0)}{" "}<ToolOutlined />
+        </Card>;
+      default:
+        return <Card  className="card-room-show" bodyStyle={{ padding: 8 }} >
+            ไม่พบสถานะห้องพัก
+        </Card>;
+    }
+}
+
+const getIconPetRoom = (PetAllowID: number) => {
+    switch (PetAllowID) {
+      case 1:
+        return <Card  className="card-room-green" bodyStyle={{ padding: 8 }} >
+            {"เลี้ยงสัตว์ได้ "}<SmileOutlined />
+        </Card>;
+      case 2:
+        return <Card  className="card-room-red" bodyStyle={{ padding: 8 }} >  
+            {"เลี้ยงสัตว์ไม่ได้ "}<FrownOutlined />
+        </Card>;
+      default:
+        return <Card  className="card-room-show" bodyStyle={{ padding: 8 }} >
+            ไม่พบสถานะเลี้ยงสัตว์
+        </Card>;
+    }
+}
+
+return (
+    <div>
             {contextHolder}
-            <Row>
-                <Col span={12}>
-                    <h1>ข้อมูลห้องพัก</h1>
-                </Col>
-                <Col span={12} style={{ textAlign: "end", alignSelf: "center" }}>
-                    <Space>
-                        <Button 
-                        type="primary" 
-                        style={{ backgroundColor: "rgb(218, 165, 32)" }}
-                        onClick={showModalCreateRoom}
+            <Card style={{ marginBottom:16}} className="card-room">
+                <Row gutter={[16, 0]} >
+                    <Col xl={12}>
+                        <Form.Item
+                            label={<span style={{fontSize: "20px" , fontWeight: "bold"}}>ค้นหาห้องพัก</span>}
+                            labelCol={{ span: 24 }}
                         >
-                            ลงทะเบียน
-                        </Button>
-                    </Space>
-
-                </Col>
-                <Divider/>
-                    <Table
+                            <Input
+                                placeholder="กรอกชื่อห้องพัก"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col xl={12} style={{display: "flex", gap: "16px",}}>
+                        <Form.Item
+                            label={<span style={{fontSize: "20px" , fontWeight: "bold"}}>สถานะห้องพัก</span>}
+                            labelCol={{ span: 24 }}
+                        >
+                            <Select
+                                placeholder="เลือกสถานะ"
+                                value={statusFilter}
+                                onChange={(value) => setStatusFilter(value)} // อัปเดต statusFilter เมื่อเลือกสถานะ
+                                style={{ width: 180 }}
+                                allowClear // ให้สามารถลบตัวเลือกได้ (แสดงทั้งหมด)
+                            >
+                                {roomtypes.map((roomtype) => (
+                                    <Option key={roomtype.ID} value={roomtype.Name}>
+                                        {roomtype.Name}
+                                    </Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
+                        <Form.Item
+                            label={<span style={{fontSize: "20px" , fontWeight: "bold"}}>การเลี้ยงสัตว์</span>}
+                            labelCol={{ span: 24 }}
+                        >
+                            <Select
+                                placeholder="เลือกสถานะ"
+                                value={petAllowFilter}
+                                onChange={(value) => setPetAllowFilter(value)} // อัปเดต statusFilter เมื่อเลือกสถานะ
+                                style={{ width: 180 }}
+                                allowClear // ให้สามารถลบตัวเลือกได้ (แสดงทั้งหมด)
+                            >
+                                {petallows.map((petallows) => (
+                                    <Option key={petallows.ID} value={petallows.Name}>
+                                        {petallows.Name}
+                                    </Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
+                        <Form.Item
+                            label={<span style={{fontSize: "20px" , fontWeight: "bold"}}>ราคาขั้นต่ำ</span>}
+                            labelCol={{ span: 24 }}
+                        >
+                            <InputNumber
+                                min={0}
+                                max={500000}
+                                value={minPrice}
+                                onChange={(value) => setMinPrice(value || 0)}
+                                style={{ width: 135 }}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label={<span style={{fontSize: "20px" , fontWeight: "bold"}}>ราคาสูงสุด</span>}
+                            labelCol={{ span: 24 }}
+                        >
+                            <InputNumber
+                                min={0}
+                                max={1000000}
+                                value={maxPrice}
+                                onChange={(value) => setMaxPrice(value || 0)}
+                                style={{ width: 135}}
+                            />
+                        </Form.Item>
+                    </Col>
+                </Row>
+            </Card>
+            <Card style={{ height: 600 }} className="card-room" >
+                <Row align="middle" gutter={[16,0]}>
+                    <Col xl={12} style={{ textAlign: "left" }} >
+                        <span style={{fontSize: "24px" , fontWeight: "bold"}}>ข้อมูลห้องพัก</span>
+                    </Col>
+                    <Col xl={12} style={{ textAlign: "end", alignSelf: "center" }}>
+                        <Space>
+                            <Button 
+                            type="primary" 
+                            className="green-button"
+                            onClick={showModalCreateRoom}
+                            icon={<PlusSquareOutlined />}
+                            >
+                                เพิ่มห้องพัก
+                            </Button>
+                        </Space>
+                    </Col>
+                    <Divider/>
+                    {/* <Table
                         rowKey="ID"
                         columns={columns}
                         dataSource={rooms} // Data from the API
                         pagination={{ pageSize: 5 }}
                         style={{ width: "100%", overflowX: "auto" }}
-                    />
-            </Row>
+                    /> */}
+                </Row>
+                <Row gutter={[16, 16]}>
+                    {paginatedRooms.length > 0 ? (
+                        paginatedRooms.map((room) => (
+                            <Col key={room.ID} xl={8}>
+                                <Card className="card-room">
+                                    <Row gutter={[10,10]} justify="center" align="middle" >
+                                        <Col xl={21}>
+                                            <Card className="card-room-title" bodyStyle={{ padding: 8 }}>
+                                                {"ห้องพัก "}{room.RoomName}
+                                            </Card>
+                                        </Col>
+                                        <Col xl={3}>
+                                            <Dropdown
+                                                menu={{
+                                                    items: [
+                                                        {
+                                                            label: "แก้ไขข้อมูล",
+                                                            key: "1",
+                                                            icon: <EditOutlined />,
+                                                            onClick: () => showModalUpdateRoom(room.ID?.toString() || "")
+                                                        },
+                                                        {
+                                                            label: "ลบข้อมูล",
+                                                            key: "2",
+                                                            icon: <DeleteOutlined />,
+                                                            onClick: () => showDeleteConfirmModal(room.ID?.toString() || ""),
+                                                            danger: true,
+                                                        },
+                                                    ],
+                                                }}
+                                            >
+                                                <Button type="primary" icon={<SettingOutlined />} size={"large"} className="config-btn" />
+                                            </Dropdown>
+                                        </Col>
+                                        <Col xl={12}>
+                                            <Card className="card-room-show" bodyStyle={{ padding: 8 }} >
+                                                {"ค่าเช่า "}{room.RoomRent}{" ฿"}
+                                            </Card>
+                                        </Col>
+                                        <Col xl={12}>
+                                            <Card className="card-room-show" bodyStyle={{ padding: 8 }} >
+                                                {"พักอาศัยได้ "}{room.RoomLimit}{" คน"}
+                                            </Card>
+                                        </Col>
+                                        <Col xl={12}>
+                                            {getIconTypeRoom(room.RoomTypeID ?? 0)}
+                                        </Col>
+                                        <Col xl={12}>
+                                            {getIconPetRoom(room.PetAllowID ?? 0)}
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                        ))
+                    ) : (
+                        <Col span={24}>
+                            <div 
+                                style={{ 
+                                    display: "flex", 
+                                    flexDirection: "column", 
+                                    justifyContent: "flex-end", 
+                                    alignItems: "center", 
+                                    minHeight: "40vh", // กำหนดความสูงขั้นต่ำ 
+                                    padding: "20px", 
+                                    color: "#999" 
+                                }}
+                            >
+                                <InboxOutlined  style={{ fontSize: "48px", marginBottom: "16px" }} />
+                                <p style={{ fontSize: "16px", color: "#999" }}>ไม่มีข้อมูลห้องพัก</p>
+                            </div>
+                        </Col>
+                    )}
+                </Row>
+            </Card>
+
+            <Col xl={24} style={{display: "flex", justifyContent: "flex-end", }}>
+                <Pagination
+                    current={currentPage}
+                    pageSize={pageSize}
+                    total={filteredRooms.length}
+                    onChange={(page) => setCurrentPage(page)}
+                    style={{ marginTop: 16 }}
+                />
+            </Col>
 
             <Modal
                 title="เพิ่มห้องพัก"
@@ -345,21 +623,39 @@ useEffect(() => {
                 <Divider/>
                 <Form
                     name="register"
-                    form={form}
+                    form={formCreate}
                     onFinish={onFinish}
                     layout="vertical"
+                    initialValues={{
+                        RoomRent: 1000,
+                        RoomLimit: 1,
+                    }}
                 >
                 <Row gutter={[16, 0]}>
                     <Col xl={24}>
                         <Form.Item
                             name="RoomName"
                             label="ชื่อห้องพัก"
-                            rules={[{ required: true, message: 'กรุณากรอกชื่อห้องพัก' }]}
-                            >
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'กรุณากรอกชื่อห้องพัก'
+                                },
+                                {
+                                    pattern: /^[\u0E00-\u0E7Fa-zA-Z0-9]+$/,
+                                    message: 'กรุณากรอกเฉพาะตัวอักษรภาษาไทย หรือ ภาษาอังกฤษ และตัวเลขเท่านั้น',
+                                },
+                            ]}
+                        >
                             <Input
-                                id="randomRoomname" // Use a less predictable id attribute
-                                type="text" // Tel type, which may help prevent cookie-based autofill
-                                autoComplete="new-password" // Prevent browser autofill
+                                id="randomRoomname"
+                                type="text"
+                                autoComplete="new-password"
+                                onKeyDown={(e) => {
+                                    if (!/^[\u0E00-\u0E7Fa-zA-Z0-9]+$/.test(e.key) && e.key !== "Backspace") {
+                                        e.preventDefault();
+                                    }
+                                }}
                                 onChange={handleRoomNameChange}
                                 onCopy={(e) => e.preventDefault()} // Prevent copy
                                 onCut={(e) => e.preventDefault()} // Prevent cut
@@ -392,7 +688,7 @@ useEffect(() => {
                         >
                             <InputNumber
                                 id="roomRentInput"
-                                maxLength={7}
+                                maxLength={6}
                                 min={100} // กำหนดค่าเริ่มต้นขั้นต่ำ
                                 autoComplete="off" // ปิดการกรอกอัตโนมัติ
                                 onKeyPress={(event) => {
@@ -472,15 +768,21 @@ useEffect(() => {
                                     message: "กรุณาเลือกการอนุญาติเลี้ยงสัตว์!",
                                 },
                             ]}
+                        >
+                            <Radio.Group 
+                                style={{    
+                                    width: '100%' ,          
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    gap: '16px', 
+                                }}
                             >
-                            <Select
-                            placeholder="กรุณาเลือกการอนุญาติเลี้ยงสัตว์"
-                            style={{ width: "100%" }}
-                            options={petallows.map((pet) => ({
-                                value: pet.ID,
-                                label: pet.Name,
-                            }))}
-                            />
+                                    {petallows.map((pet) => (
+                                        <Radio key={pet.ID} value={pet.ID}>
+                                            {pet.Name}
+                                        </Radio>
+                                    ))}
+                            </Radio.Group>
                         </Form.Item>
                     </Col>
                 </Row>
@@ -490,8 +792,9 @@ useEffect(() => {
                             <Button 
                                 type="primary"
                                 htmlType="submit"
+                                className="green-button"
                                 loading={isSubmitting}
-                                disabled={isSubmitting || roomLimitInvalid || roomNameInvalid }
+                                disabled={isSubmitting || roomNameInvalid }
                                 >
                                 ยืนยัน
                             </Button>
@@ -502,9 +805,9 @@ useEffect(() => {
             </Modal>
             <Modal
                 title="ยืนยันการลบ"
-                open={isModalOpenDeleate}
-                onOk={handleDeleteMember}
-                onCancel={() => setIsModalOpenDeleate(false)}
+                open={isModalOpenDelete}
+                onOk={handleDeleteRoom}
+                onCancel={() => setIsModalOpenDelete(false)}
                 okType="danger"
                 okText="ลบ"
                 cancelText="ยกเลิก"
@@ -517,29 +820,44 @@ useEffect(() => {
                 onCancel={handleCancelUpdateRoom}
                 footer={null} // ลบ default footer ถ้าต้องการ
             >
+                <Divider/>
                 <Form
                     name="register"
-                    form={form}
+                    form={formUpdate}
                     onFinish={onFinishUpdate}
                     layout="vertical"
                 >
                     <Row gutter={[16, 0]}>
                         <Col xl={24}>
-                            <Form.Item
-                                name="RoomName"
-                                label="ชื่อห้องพัก"
-                                rules={[{ required: true, message: 'กรุณากรอกชื่อห้องพัก' }]}
-                                >
-                                <Input
-                                    id="randomRoomname" // Use a less predictable id attribute
-                                    type="text" // Tel type, which may help prevent cookie-based autofill
-                                    autoComplete="new-password" // Prevent browser autofill
-                                    onChange={handleRoomNameChange}
-                                    onCopy={(e) => e.preventDefault()} // Prevent copy
-                                    onCut={(e) => e.preventDefault()} // Prevent cut
-                                    onPaste={(e) => e.preventDefault()} // Prevent paste
-                                />
-                            </Form.Item>
+                        <Form.Item
+                            name="RoomName"
+                            label="ชื่อห้องพัก"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'กรุณากรอกชื่อห้องพัก'
+                                },
+                                {
+                                    pattern: /^[\u0E00-\u0E7Fa-zA-Z0-9]+$/,
+                                    message: 'กรุณากรอกเฉพาะตัวอักษรภาษาไทย หรือ ภาษาอังกฤษ และตัวเลขเท่านั้น',
+                                },
+                            ]}
+                        >
+                            <Input
+                                id="randomRoomname"
+                                type="text"
+                                autoComplete="new-password"
+                                onKeyDown={(e) => {
+                                    if (!/^[\u0E00-\u0E7Fa-zA-Z0-9]+$/.test(e.key) && e.key !== "Backspace") {
+                                        e.preventDefault();
+                                    }
+                                }}
+                                onChange={handleRoomNameChangeUpdate}
+                                onCopy={(e) => e.preventDefault()} // Prevent copy
+                                onCut={(e) => e.preventDefault()} // Prevent cut
+                                onPaste={(e) => e.preventDefault()} // Prevent paste
+                            />
+                        </Form.Item>
                         </Col>
                         <Col xl={12}>
                             <Form.Item
@@ -636,7 +954,7 @@ useEffect(() => {
                                 />
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={12} >
                             <Form.Item
                                 label="การอนุญาติเลี้ยงสัตว์"
                                 name="PetAllowID"
@@ -646,15 +964,21 @@ useEffect(() => {
                                         message: "กรุณาเลือกการอนุญาติเลี้ยงสัตว์!",
                                     },
                                 ]}
+                            >
+                                <Radio.Group 
+                                    style={{    
+                                        width: '100%' ,          
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        gap: '16px', 
+                                    }}
                                 >
-                                <Select
-                                placeholder="กรุณาเลือกการอนุญาติเลี้ยงสัตว์"
-                                style={{ width: "100%" }}
-                                options={petallows.map((pet) => ({
-                                    value: pet.ID,
-                                    label: pet.Name,
-                                }))}
-                                />
+                                        {petallows.map((pet) => (
+                                            <Radio key={pet.ID} value={pet.ID}>
+                                                {pet.Name}
+                                            </Radio>
+                                        ))}
+                                </Radio.Group>
                             </Form.Item>
                         </Col>
                     </Row>
@@ -664,8 +988,9 @@ useEffect(() => {
                                 <Button 
                                     type="primary"
                                     htmlType="submit"
+                                    className="green-button"
                                     loading={isSubmittingUpdate}
-                                    disabled={isSubmittingUpdate}
+                                    disabled={isSubmittingUpdate || roomLimitInvalid || roomNameInvalid }
                                     >
                                     ยืนยัน
                                 </Button>

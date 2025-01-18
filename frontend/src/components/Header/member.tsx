@@ -68,7 +68,7 @@ function HeaderComponent() {
     
     const items: MenuItem[] = [
       {
-        label: <Link to="/">สมาชิก</Link>, 
+        label: <Link to="/booking">สมาชิก</Link>, 
         key: 'employee',
         icon: <TeamOutlined />,
       },
@@ -78,9 +78,27 @@ function HeaderComponent() {
         icon: <BookOutlined />,
       },
       {
-        label: <Link to="/">ค้นหา</Link>, 
-        key: 'search',
-        icon: <SearchOutlined />,
+        label: "บริการ",
+        key: "Serve",
+        icon: <TeamOutlined />,
+        popupClassName: "custom-submenu",
+        children: [
+          {
+            label: <Link to="/">ตรวจสอบการเงิน</Link>,
+            key: "Money",
+            icon: <TeamOutlined />,
+          },
+          {
+            label: <Link to="/">มอบหมายงาน</Link>,
+            key: "Work",
+            icon: <TeamOutlined />,
+          },
+          {
+            label: <Link to="/">รายงานการทำงาน</Link>,
+            key: "Report",
+            icon: <TeamOutlined />,
+          },
+        ],
       },
     ];
     

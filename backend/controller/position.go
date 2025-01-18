@@ -14,3 +14,11 @@ func GetPositions(c *gin.Context) {
    db.Find(&positions)
    c.JSON(http.StatusOK, &positions)
 }
+
+func GetPositionEmployee(c *gin.Context) {
+   var positions []entity.Position
+   
+   db := config.DB()
+   db.Where("id != ?", 6).Find(&positions)
+   c.JSON(http.StatusOK, &positions)
+}

@@ -31,25 +31,36 @@ func SetupDatabase() {
 		&entity.Room{},
 		&entity.PetAllow{},
 		&entity.RoomType{},
+		&entity.Booking{},
+		&entity.Facility{},
+		&entity.FacilityStatus{},
+		&entity.FacilityType{},
 	)
-
+	
 	GenderMale := entity.Gender{Name: "ชาย"}
 	GenderFemale := entity.Gender{Name: "หญิง"}
 	GenderOther := entity.Gender{Name: "อื่นๆ"}
-
+	
 	PetAllow := entity.PetAllow{Name: "อนุญาต"}
 	PetNotAllow := entity.PetAllow{Name: "ไม่อนุญาต"}
-
-	RoomAvaliable := entity.RoomType{Name: "ว่าง"}
-	RoomNotAvaliable := entity.RoomType{Name: "ไม่ว่าง"}
-	RoomMaintenance := entity.RoomType{Name: "กำลังปรับปรุง"}
-
+	
+	RoomAvaliable := entity.RoomType{Name: "พร้อมใช้งาน"}
+	RoomNotAvaliable := entity.RoomType{Name: "มีผู้พักอาศัย"}
+	RoomMaintenance := entity.RoomType{Name: "ซ่อมบำรุง"}
+	
 	PositionDormitoryAdmin := entity.Position{Name: "ไอที"}
 	PositionDormitoryCaretaker := entity.Position{Name: "ผู้ดูแลหอพัก"}
 	PositionDormitorySecurityGuard := entity.Position{Name: "ผู้ดูแลรักษาความปลอดภัยหอพัก"}
 	PositionDormitoryMaid := entity.Position{Name: "แม่บ้าน"}
 	PositionDormitoryMaintenanceTechnician := entity.Position{Name: "ช่างซ่อมบำรุง"}
 	PositionDormitoryMember := entity.Position{Name: "ผู้พักอาศัย"}
+
+	FacilityOpen := entity.FacilityStatus{Name: "เปิดใช้งาน"}
+	FacilityClose := entity.FacilityStatus{Name: "ปิดใช้งาน"}
+	FacilityMaintenace := entity.FacilityStatus{Name: "ซ่อมบำรุง"}
+
+	FacilityGym := entity.FacilityType{Name: "ฟิตเนส"}
+	FacilityMeetRoom := entity.FacilityType{Name: "ห้องประชุม"}
 
 	db.FirstOrCreate(&GenderMale, &entity.Gender{Name: "ชาย"})
 	db.FirstOrCreate(&GenderFemale, &entity.Gender{Name: "หญิง"})
@@ -58,9 +69,9 @@ func SetupDatabase() {
 	db.FirstOrCreate(&PetAllow, &entity.PetAllow{Name: "อนุญาต"})
 	db.FirstOrCreate(&PetNotAllow, &entity.PetAllow{Name: "ไม่อนุญาต"})
 
-	db.FirstOrCreate(&RoomAvaliable, &entity.RoomType{Name: "ว่าง"})
-	db.FirstOrCreate(&RoomNotAvaliable, &entity.RoomType{Name: "ไม่ว่าง"})
-	db.FirstOrCreate(&RoomMaintenance, &entity.RoomType{Name: "กำลังปรับปรุง"})
+	db.FirstOrCreate(&RoomAvaliable, &entity.RoomType{Name: "พร้อมใช้งาน"})
+	db.FirstOrCreate(&RoomNotAvaliable, &entity.RoomType{Name: "มีผู้พักอาศัย"})
+	db.FirstOrCreate(&RoomMaintenance, &entity.RoomType{Name: "ซ่อมบำรุง"})
 
 	db.FirstOrCreate(&PositionDormitoryAdmin, &entity.Position{Name: "ไอที"})
 	db.FirstOrCreate(&PositionDormitoryCaretaker, &entity.Position{Name: "ผู้ดูแลหอพัก"})
@@ -68,6 +79,13 @@ func SetupDatabase() {
 	db.FirstOrCreate(&PositionDormitoryMaid, &entity.Position{Name: "แม่บ้าน"})
 	db.FirstOrCreate(&PositionDormitoryMaintenanceTechnician, &entity.Position{Name: "ช่างซ่อมบำรุง"})
 	db.FirstOrCreate(&PositionDormitoryMember, &entity.Position{Name: "ผู้พักอาศัย"})
+
+	db.FirstOrCreate(&FacilityOpen, &entity.FacilityStatus{Name: "เปิดใช้งาน"})
+	db.FirstOrCreate(&FacilityClose, &entity.FacilityStatus{Name: "ปิดใช้งาน"})
+	db.FirstOrCreate(&FacilityMaintenace, &entity.FacilityStatus{Name: "ซ่อมบำรุง"})
+
+	db.FirstOrCreate(&FacilityGym, &entity.FacilityType{Name: "ฟิตเนส"})
+	db.FirstOrCreate(&FacilityMeetRoom, &entity.FacilityType{Name: "ห้องประชุม"})
 
 	hashedPassword, _ := HashPassword("12345")
 

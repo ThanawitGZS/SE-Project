@@ -1,35 +1,49 @@
 package uint
 
 import (
-	"github.com/asaskevich/govalidator"
-	. "github.com/onsi/gomega"
-	"github.com/ThanawitGZS/SE-Project/entity"
+	"fmt"
 	"testing"
 	"time"
+
+	"github.com/ThanawitGZS/SE-Project/entity"
+	"github.com/asaskevich/govalidator"
+	. "github.com/onsi/gomega"
 )
 
-func TestRoom(t *testing.T){
-	g := NewGomegaWithT(t)
+func TestRoom(t *testing.T) {
 	var date time.Time
-	var rent uint
-	var limit uint
-	var id uint
+	g := NewGomegaWithT(t)
+
+	employee := entity.Employee{
+			FirstName:"Thanawit",
+			LastName:"Yanangam",
+			PhoneNumber:"0123456789",		
+			NationalId:"1234567890123",
+			Email:"Thanawit@stayease.com",
+			Password:"12345",
+			Profile:"longtext",
+			GenderID:uint(1),
+			PositionID:uint(1),
+	}
 
 	t.Run(`room is valid`, func(t *testing.T) {
 		room := entity.Room{
-			RoomName: "7101",
-			RoomRent: 2900,
-			RoomLimit: 2,
+			RoomName:   "7101",
+			RoomRent:   2900,
+			RoomLimit:  2,
 			DateCreate: time.Now(),
-			RoomTypeID: 1,
-			PetAllowID: 1,
-			EmployeeID: 1,
+			RoomTypeID: uint(1),
+			PetAllowID: uint(1),
+			EmployeeID: uint(1),
+			Employee: employee,
 		}
 
 		ok, err := govalidator.ValidateStruct(room)
 
 		g.Expect(ok).To(BeTrue())
 		g.Expect(err).To(BeNil())
+
+		fmt.Printf("Error ที่ได้รับ : %v", err)
 	})
 
 	t.Run(`room_name is required`, func(t *testing.T) {
@@ -38,9 +52,10 @@ func TestRoom(t *testing.T){
 			RoomRent: 2900,
 			RoomLimit: 2,
 			DateCreate: time.Now(),
-			RoomTypeID: 1,
-			PetAllowID: 1,
-			EmployeeID: 1,
+			RoomTypeID: uint(1),
+			PetAllowID: uint(1),
+			EmployeeID: uint(1),
+			Employee: employee,
 		}
 
 		ok, err := govalidator.ValidateStruct(room)
@@ -53,12 +68,13 @@ func TestRoom(t *testing.T){
 	t.Run(`room_rent is required`, func(t *testing.T) {
 		room := entity.Room{
 			RoomName: "7101", 
-			RoomRent: rent, //ผิดตรงนี้
+			RoomRent: 0, //ผิดตรงนี้
 			RoomLimit: 2,
 			DateCreate: time.Now(),
-			RoomTypeID: 1,
-			PetAllowID: 1,
-			EmployeeID: 1,
+			RoomTypeID: uint(1),
+			PetAllowID: uint(1),
+			EmployeeID: uint(1),
+			Employee: employee,
 		}
 
 		ok, err := govalidator.ValidateStruct(room)
@@ -72,11 +88,12 @@ func TestRoom(t *testing.T){
 		room := entity.Room{
 			RoomName: "7101", 
 			RoomRent: 2900,
-			RoomLimit: limit, //ผิดตรงนี้
+			RoomLimit: 0, //ผิดตรงนี้
 			DateCreate: time.Now(),
 			RoomTypeID: 1,
 			PetAllowID: 1,
 			EmployeeID: 1,
+			Employee: employee,
 		}
 
 		ok, err := govalidator.ValidateStruct(room)
@@ -92,9 +109,10 @@ func TestRoom(t *testing.T){
 			RoomRent: 2900,
 			RoomLimit: 3,
 			DateCreate: date, //ผิดตรงนี้
-			RoomTypeID: 1,
-			PetAllowID: 1,
-			EmployeeID: 1,
+			RoomTypeID: uint(1),
+			PetAllowID: uint(1),
+			EmployeeID: uint(1),
+			Employee: employee,
 		}
 
 		ok, err := govalidator.ValidateStruct(room)
@@ -110,9 +128,10 @@ func TestRoom(t *testing.T){
 			RoomRent: 2900,
 			RoomLimit: 3,
 			DateCreate: time.Now(), 
-			RoomTypeID: id, //ผิดตรงนี้
-			PetAllowID: 1, 
-			EmployeeID: 1,
+			RoomTypeID: uint(0), //ผิดตรงนี้
+			PetAllowID: uint(1),
+			EmployeeID: uint(1),
+			Employee: employee,
 		}
 
 		ok, err := govalidator.ValidateStruct(room)
@@ -128,9 +147,10 @@ func TestRoom(t *testing.T){
 			RoomRent: 2900,
 			RoomLimit: 3,
 			DateCreate: time.Now(), 
-			RoomTypeID: 1,
-			PetAllowID: id, //ผิดตรงนี้
-			EmployeeID: 1,
+			RoomTypeID: uint(1),
+			PetAllowID: uint(0), //ผิดตรงนี้
+			EmployeeID: uint(1),
+			Employee: employee,
 		}
 
 		ok, err := govalidator.ValidateStruct(room)
@@ -146,9 +166,10 @@ func TestRoom(t *testing.T){
 			RoomRent: 2900,
 			RoomLimit: 3,
 			DateCreate: time.Now(), 
-			RoomTypeID: 1,
-			PetAllowID: 1,
-			EmployeeID: id, //ผิดตรงนี้
+			RoomTypeID: uint(1),
+			PetAllowID: uint(1),
+			EmployeeID: uint(0), //ผิดตรงนี้
+			Employee: employee,
 		}
 
 		ok, err := govalidator.ValidateStruct(room)
@@ -157,4 +178,5 @@ func TestRoom(t *testing.T){
 		g.Expect(err).NotTo(BeNil())
 		g.Expect(err.Error()).To(Equal("EmployeeID is required"))
 	})
+
 }

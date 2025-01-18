@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Space, Table, Button, Col, Row, Divider, message, Dropdown, Modal, Card, Statistic } from "antd";
-import { PlusOutlined, DeleteOutlined, EditOutlined, DashOutlined  } from "@ant-design/icons";
+import { UserAddOutlined , DeleteOutlined, EditOutlined, DashOutlined  } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import { GetMembers, DeleteMemberByID} from "../../../services/https/index";
 import { MemberInterface } from "../../../interfaces/Member";
@@ -14,11 +14,11 @@ export default function Member() {
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
 
   const columns: ColumnsType<MemberInterface> = [
-    {
-      title: "ลำดับ",
-      dataIndex: "ID",
-      key: "id",
-    },
+    // {
+    //   title: "ลำดับ",
+    //   dataIndex: "ID",
+    //   key: "id",
+    // },
     {
       title: "รูปประจำตัว",
       dataIndex: "Profile",
@@ -139,7 +139,7 @@ export default function Member() {
         <Col span={12} style={{ textAlign: "end", alignSelf: "center" }}>
           <Space>
             <Link to="/member/create">
-              <Button type="primary" icon={<PlusOutlined />} style={{ backgroundColor: "rgb(218, 165, 32)" }}>
+              <Button type="primary" icon={<UserAddOutlined />} style={{ backgroundColor: "rgb(218, 165, 32)" }}>
                 สมัครสมาชิก
               </Button>
             </Link>

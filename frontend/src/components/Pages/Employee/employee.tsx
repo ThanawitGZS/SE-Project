@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Space, Table, Button, Col, Row, Divider, message, Dropdown, Modal } from "antd";
-import { PlusOutlined, EditOutlined, DeleteOutlined, DashOutlined } from "@ant-design/icons";
+import { UserAddOutlined , EditOutlined, DeleteOutlined, DashOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import { GetEmployees, DeleteEmployeeByID } from "../../../services/https";
 import { EmployeeInterface } from "../../../interfaces/Employee";
@@ -15,11 +15,11 @@ function Employee() {
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<string | null>(null);
 
   const columns: ColumnsType<EmployeeInterface> = [
-    {
-      title: "ลำดับ",
-      dataIndex: "ID",
-      key: "id",
-    },
+    // {
+    //   title: "ลำดับ",
+    //   dataIndex: "ID",
+    //   key: "id",
+    // },
     {
       title: "รูปประจำตัว",
       dataIndex: "Profile",
@@ -142,7 +142,7 @@ function Employee() {
         <Col span={12} style={{ textAlign: "end", alignSelf: "center" }}>
           <Space>
             <Link to="/employee/create">
-              <Button type="primary" icon={<PlusOutlined />} style={{ backgroundColor: "rgb(218, 165, 32)" }}>
+              <Button type="primary" icon={<UserAddOutlined />} style={{ backgroundColor: "rgb(218, 165, 32)" }}>
                 ลงทะเบียน
               </Button>
             </Link>

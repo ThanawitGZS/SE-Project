@@ -5,9 +5,13 @@ import { Breadcrumb, Layout, theme, message } from "antd";
 
 import Bar from "../Header/index"
 import BarMember from "../Header/member.tsx"
+import BarEmployee from "../Header/employee.tsx"
+
 import Dashboard from "../Pages/dashboard/dashboard";
 
 import Room from "../Pages/Room/index.tsx"
+import FacilityManager from "../Pages/Facility/Manager/index.tsx";
+import FacilityBooking from "../Pages/Facility/Member/index.tsx";
 
 import Employee from "../Pages/Employee/employee";
 import EmployeeCreate from "../Pages/Employee/create/createEmployee";
@@ -19,29 +23,30 @@ import Member from "../Pages/Member/member"
 import MemberCreate from "../Pages/Member/create/createMember"
 import MemberEdit from "../Pages/Member/edit/editMember"
 
+
 const { Content } = Layout;
 
 const FullLayout: React.FC = () => {
     const [_messageApi, contextHolder] = message.useMessage();
-    //ใช้ underscore แก้ปัญหา Declared but not use
+    //ใช้ underscore ( _ ) แก้ปัญหา Declared but not use
     
     const positionID = localStorage.getItem("positionID");
     let role = "";
-    if (positionID === "1") {
-      role = "IT";
-    } else if (positionID === "2") {
+    if (positionID === "1" || positionID === "2") {
       role = "Manager";
+    } else if (positionID === "6") {
+      role = "Member";
     } else {
-      role = "Common";
+      role = "Employee";
     }
   
     const renderSider = () => {
-      if (role === "IT") {
+      if (role === "Manager") {
         return <Bar />;
-      // } else if (role === "Manager") {
-      //   return <ManagerSider />;
-      } else {
+      } else if (role === "Member") {
         return <BarMember />;
+      } else {
+        return <BarEmployee />;
       }
     };
   
@@ -79,6 +84,8 @@ const FullLayout: React.FC = () => {
                     <Route path="/member/create" element={<MemberCreate />} />
                     <Route path="/member/edit/:id" element={<MemberEdit />} />
                     <Route path="/room" element={<Room />}></Route>
+                    <Route path="/facilityarea" element={<FacilityManager />}></Route>
+                    <Route path="/booking" element={<FacilityBooking />}></Route>
                 </Routes>
               </div>
             </Content>

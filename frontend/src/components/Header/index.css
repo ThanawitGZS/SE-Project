@@ -1,0 +1,55 @@
+เปลี่ยนสีพื้นหลังและข้อความของรายการที่เลือก
+.custom-submenu .ant-menu-item-selected {
+    color: #ffffff !important; /* สีข้อความเมื่อเลือก */
+    border: none !important; /* เอากรอบเริ่มต้นออก */
+}
+
+/* เพิ่มกรอบรอบรายการที่เลือก */
+.custom-submenu .ant-menu-item-selected::after {
+    content: ''; /* จำเป็นสำหรับเพิ่มกรอบ */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px; /* มุมมนของกรอบ */
+    box-sizing: border-box;
+    pointer-events: none; /* ไม่ให้กรอบมีผลต่อการคลิก */
+}
+
+/* ปรับสีพื้นหลังเมื่อ hover */
+.custom-submenu .ant-menu-item:hover {
+    background-color: #1d347a !important; /* สีพื้นหลังเมื่อ hover */
+    color: #ffffff !important; /* สีข้อความเมื่อ hover */
+}
+
+/* สีข้อความปกติ */
+.custom-submenu .ant-menu-item {
+    color: #000000 !important; /* สีข้อความปกติ */
+}
+
+/* ปรับสีข้อความเฉพาะเมนูย่อย (แยกจากเมนูหลัก) */
+.custom-submenu .ant-menu-item-selected > .ant-menu-title-content {
+    color: #ffffff !important; /* สีข้อความเฉพาะในเมนูย่อยเมื่อเลือก */
+}
+
+/* เปลี่ยนสีพื้นหลังของรายการที่เลือก */
+.custom-submenu .ant-menu-item-selected {
+    background-color: #1b327d !important;
+    color: #ffffff !important;
+}
+
+/* สี Icon เมื่อรายการถูกเลือก */
+.custom-submenu .ant-menu-item-selected > span > .anticon {
+    color: #ffffff !important; /* สี Icon เมื่อรายการถูกเลือก */
+}
+
+/* สี Icon เมื่อ Hover */
+.custom-submenu .ant-menu-item:hover > span > .anticon {
+    color: #ffffff !important; /* สี Icon เมื่อ Hover */
+}
+
+/* สี Icon ปกติ */
+.custom-submenu .ant-menu-item > span > .anticon {
+    color: #000000 !important; /* สี Icon ปกติ */
+}

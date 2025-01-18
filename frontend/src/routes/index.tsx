@@ -7,17 +7,17 @@ function ConfigRoutes() {
   const isLoggedIn = localStorage.getItem("isLogin") === "true";
   const positionID = localStorage.getItem("positionID"); 
   let role = "";
-  if (positionID === '1') {
-    role = "IT"
-  } else if (positionID === '2'){
+  if (positionID === '1' || positionID === '2') {
     role = "Manager"
+  } else if (positionID === '6'){
+    role = "Member"
   } else {
-    role = "Common"
+    role = "Employee"
   }
   let routes: RouteObject[] = [];
 
   if (isLoggedIn) {
-    routes = [AdminRoutes(isLoggedIn, role || "Common"), LoginRoutes()];
+    routes = [AdminRoutes(isLoggedIn, role || "Member"), LoginRoutes()];
   } else {
     routes = [LoginRoutes()];
   }

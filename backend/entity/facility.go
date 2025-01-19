@@ -8,6 +8,7 @@ import (
 type Facility struct {
 	gorm.Model
 	FacilityName string 	`valid:"required~FacilityName is required"`
+	Using		uint 		`valid:"required~Using is required"`
 	Capacity 	uint		`valid:"required~Capacity is required"`
 	TimeOpen 	string 	`valid:"required~TimeOpen is required"`
 	TimeClose 	string 	`valid:"required~TimeClose is required"`

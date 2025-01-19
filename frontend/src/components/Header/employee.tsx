@@ -102,7 +102,7 @@ function HeaderComponent() {
       
       setTimeout(() => {
         navigate('/login');
-      }, 2000);
+      }, 1000);
     }
   };
   

@@ -12,4 +12,5 @@ type Booking struct {
 
 	MemberID 	uint		`valid:"required~MemberID is required"`
 	Member		Member		`gorm:"foreignKey: member_id"`
+
 }

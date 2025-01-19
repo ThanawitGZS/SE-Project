@@ -80,6 +80,7 @@ func CreateFacility(c *gin.Context) {
 
     f := entity.Facility{
         FacilityName:  		facility.FacilityName,
+        Using:              facility.Using,
         Capacity:   		facility.Capacity,
 		TimeOpen: 			facility.TimeOpen,
 		TimeClose: 			facility.TimeClose,

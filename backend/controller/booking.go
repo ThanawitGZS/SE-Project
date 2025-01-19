@@ -6,13 +6,54 @@ import (
 	"github.com/ThanawitGZS/SE-Project/entity"
 	"github.com/gin-gonic/gin"
 	"time"
+    "gorm.io/gorm"
  )
 
- func GetBookings(c *gin.Context) {
+ func GetBookingByID(c *gin.Context) {
 	var Booking []entity.Booking
+    ID := c.Param("id")
  
 	db := config.DB()
-	results := db.Preload("Facility").Preload("Member").Find(&Booking)
+	results := db.Unscoped().Find(&Booking, ID)
+	if results.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, Booking)
+}
+
+ func GetBookingFacilityByID(c *gin.Context) {
+	var count int64
+	ID := c.Param("id")
+
+	db := config.DB()
+	results := db.Model(&entity.Booking{}).Where("facility_id = ?", ID).Count(&count)
+	if results.Error != nil {
+		c.JSON(http.StatusNotFound, results.Error.Error())
+		return
+	}
+	c.JSON(http.StatusOK, count)
+}
+
+func GetMemberBookingByID(c *gin.Context) {
+	var Booking []entity.Booking
+    ID := c.Param("id")
+ 
+	db := config.DB()
+	results := db.Preload("Member").Where("facility_id = ?", ID).Find(&Booking)
+	if results.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, Booking)
+}
+
+ func GetBookingMemberbyID(c *gin.Context) {
+	var Booking []entity.Booking
+    ID := c.Param("id")
+ 
+	db := config.DB()
+	results := db.Preload("Facility").Preload("Member").Where("member_id = ?", ID).Find(&Booking)
 	if results.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": results.Error.Error()})
 		return
@@ -93,4 +134,97 @@ func DeleteBookingByID(c *gin.Context) {
     }
 
 	c.JSON(http.StatusOK, gin.H{"message": "ลบการลงชื่อเข้าใช้งานสำเร็จ"})
+}
+
+func DeleteBookingsByFacilityID(c *gin.Context) {
+    facilityID := c.Param("id") 
+    db := config.DB()
+
+    // ตรวจสอบ facilityID
+    if facilityID == "" {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid facility_id"})
+        return
+    }
+
+    // เริ่ม Transaction
+    tx := db.Begin()
+    if tx.Error != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to start transaction"})
+        return
+    }
+
+    defer func() {
+        if r := recover(); r != nil {
+            tx.Rollback()
+            c.JSON(http.StatusInternalServerError, gin.H{"error": "Transaction failed"})
+        }
+    }()
+
+    // ลบข้อมูล (soft delete)
+    result := tx.Model(&entity.Booking{}).
+        Where("facility_id = ? AND deleted_at IS NULL", facilityID).
+        Update("deleted_at", time.Now())
+    
+    if result.Error != nil {
+        tx.Rollback()
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete bookings: " + result.Error.Error()})
+        return
+    }
+
+    // // หากไม่มีข้อมูลที่ถูกลบ
+    // if result.RowsAffected == 0 {
+    //     tx.Rollback()
+    //     c.JSON(http.StatusNotFound, gin.H{"error": "ไม่เจอข้อมูลการจองของพื้นที่"})
+    //     return
+    // }
+
+    // Commit Transaction
+    if err := tx.Commit().Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to commit transaction"})
+        return
+    }
+
+    // ส่งผลลัพธ์กลับ
+    c.JSON(http.StatusOK, gin.H{"message":"ลบข้อมูลการจองสำเร็จ",})
+}
+
+
+
+func CheckBooking (c *gin.Context){
+    var booking entity.Booking
+    
+    var requestBody struct {
+		MemberID uint
+		FacilityID uint
+	}
+
+    // Parse the JSON body into requestBody
+	if err := c.ShouldBindJSON(&requestBody); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+		return
+	}
+
+    db := config.DB()
+
+    Result := db.Where("member_id = ? AND facility_id = ?", requestBody.MemberID, requestBody.FacilityID).First(&booking)
+
+    if Result.Error == gorm.ErrRecordNotFound {
+        c.JSON(http.StatusOK, gin.H{
+            "canBook": true,
+        })
+        return
+    }
+
+    // ถ้ามี error อื่นๆ
+    if Result.Error != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{
+            "error": Result.Error.Error(),
+        })
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{
+        "canBook": false,
+        "message": "มีการจองเข้าใช้งานอยู่แล้ว",
+    })
 }

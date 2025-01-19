@@ -36,6 +36,7 @@ func TestFacility(t *testing.T){
 	t.Run(`facility is valid`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "GYM",
+			Using: 1,
 			Capacity: 50,
 			TimeOpen: "05:00",
 			TimeClose: "06:00",
@@ -59,6 +60,7 @@ func TestFacility(t *testing.T){
 	t.Run(`facility_name is required`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "",//ผิดตรงนี้
+			Using: 1,
 			Capacity: 50,
 			TimeOpen: "05:00",
 			TimeClose: "06:00",
@@ -80,9 +82,35 @@ func TestFacility(t *testing.T){
 
 	})
 
+	t.Run(`using is required`, func(t *testing.T) {
+		facility := entity.Facility{
+			FacilityName: "GYM",
+			Using: 0,//ผิดตรงนี้
+			Capacity: 50,
+			TimeOpen: "05:00",
+			TimeClose: "06:00",
+			Descript: "ห้องออกกำลังกาย",
+			DateCreate:	time.Now(),
+			FacilityTypeID: uint(1),
+			FacilityType: facilityType,
+			FacilityStatusID: uint(1),
+			FacilityStatus: facilityStatus,
+			EmployeeID: uint(1),
+			Employee: employee,
+		}
+
+		ok, err := govalidator.ValidateStruct(facility)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).NotTo(BeNil())
+		g.Expect(err.Error()).To(Equal("Using is required"))
+
+	})
+
 	t.Run(`capacity is required`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "GYM",
+			Using: 1,
 			Capacity: 0,//ผิดตรงนี้
 			TimeOpen: "05:00",
 			TimeClose: "06:00",
@@ -107,6 +135,7 @@ func TestFacility(t *testing.T){
 	t.Run(`time_open is required`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "GYM",
+			Using: 1,
 			Capacity: 50,
 			TimeOpen: "",//ผิดตรงนี้
 			TimeClose: "06:00",
@@ -131,6 +160,7 @@ func TestFacility(t *testing.T){
 	t.Run(`time_close is required`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "GYM",
+			Using: 1,
 			Capacity: 50,
 			TimeOpen: "05:00",
 			TimeClose: "",//ผิดตรงนี้
@@ -155,6 +185,7 @@ func TestFacility(t *testing.T){
 	t.Run(`descript is required`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "GYM",
+			Using: 1,
 			Capacity: 50,
 			TimeOpen: "05:00",
 			TimeClose: "06:00",
@@ -179,6 +210,7 @@ func TestFacility(t *testing.T){
 	t.Run(`facility_type_id is required`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "GYM",
+			Using: 1,
 			Capacity: 50,
 			TimeOpen: "05:00",
 			TimeClose: "06:00",
@@ -203,6 +235,7 @@ func TestFacility(t *testing.T){
 	t.Run(`facility_type_id is required`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "GYM",
+			Using: 1,
 			Capacity: 50,
 			TimeOpen: "05:00",
 			TimeClose: "06:00",
@@ -227,6 +260,7 @@ func TestFacility(t *testing.T){
 	t.Run(`facility_status_id is required`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "GYM",
+			Using: 1,
 			Capacity: 50,
 			TimeOpen: "05:00",
 			TimeClose: "06:00",
@@ -251,6 +285,7 @@ func TestFacility(t *testing.T){
 	t.Run(`employee_id is required`, func(t *testing.T) {
 		facility := entity.Facility{
 			FacilityName: "GYM",
+			Using: 1,
 			Capacity: 50,
 			TimeOpen: "05:00",
 			TimeClose: "06:00",

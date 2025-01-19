@@ -161,6 +161,7 @@ export default function FacilityManager() {
         }
         
         values.EmployeeID = parseInt(employeeID, 10);
+        values.Using = 0 ;
         
         if (timeRange && timeRange.length === 2) {
             const [startTime, endTime] = timeRange;
@@ -457,15 +458,14 @@ export default function FacilityManager() {
         }
     }
 
-    const getInfoType= (TypeID: number , Capacity: number) => {
+    const getInfoType= (TypeID: number , Capacity: number , Using: number) => {
         switch (TypeID) {
             case 1:
             return <Card  className="card-room-show" bodyStyle={{ padding: 8 }} >
-                {/* {getNameFacilityType(TypeID ?? 0)}{" "}<HeartOutlined /> */}
-                {"มีการจองเข้าใช้งานอยู่ "}{Capacity}{" คน"}
+                {"เข้าใช้งานอยู่ "}{Using}{"/"}{Capacity}{" คน"}
             </Card>;
             case 2:
-            const capacityMessage = Capacity === 1 
+            const capacityMessage = Using === 1 
             ? "มีการจองใช้งาน" 
             : "ไม่มีการจองใช้งาน";
             return <Card  className="card-room-show" bodyStyle={{ padding: 8 }} >  
@@ -487,7 +487,7 @@ export default function FacilityManager() {
             {contextHolder}
             <Card style={{ marginBottom:16}} className="card-room">
                 <Row gutter={[16, 0]} >
-                    <Col xl={12}>
+                    <Col xl={16}>
                         <Form.Item
                             label={<span style={{fontSize: "20px" , fontWeight: "bold"}}>ค้นหาพื้นที่ส่วนกลาง</span>}
                             labelCol={{ span: 24 }}
@@ -499,7 +499,7 @@ export default function FacilityManager() {
                             />
                         </Form.Item>
                     </Col>
-                    <Col xl={12} style={{display: "flex", gap: "16px",}}>
+                    <Col xl={4} style={{display: "flex", gap: "16px",}}>
                         <Form.Item
                             label={<span style={{fontSize: "20px" , fontWeight: "bold"}}>ประเภทพื้นที่</span>}
                             labelCol={{ span: 24 }}
@@ -508,7 +508,7 @@ export default function FacilityManager() {
                                 placeholder="เลือกประเภท"
                                 value={typeFilter}
                                 onChange={(value) => setTypeFilter(value)} // อัปเดต statusFilter เมื่อเลือกสถานะ
-                                // style={{ width: 180 }}
+                                style={{ width: 220 }}
                                 allowClear // ให้สามารถลบตัวเลือกได้ (แสดงทั้งหมด)
                             >
                                 {facilitytypes.map((type) => (
@@ -518,6 +518,8 @@ export default function FacilityManager() {
                                 ))}
                             </Select>
                         </Form.Item>
+                    </Col>
+                    <Col xl={4} style={{display: "flex", gap: "16px",}}>
                         <Form.Item
                             label={<span style={{fontSize: "20px" , fontWeight: "bold"}}>สถานะพื้นที่</span>}
                             labelCol={{ span: 24 }}
@@ -526,7 +528,7 @@ export default function FacilityManager() {
                                 placeholder="เลือกสถานะ"
                                 value={statusFilter}
                                 onChange={(value) => setStatusFilter(value)} // อัปเดต statusFilter เมื่อเลือกสถานะ
-                                // style={{ width: 180 }}
+                                style={{ width: 220 }}
                                 allowClear // ให้สามารถลบตัวเลือกได้ (แสดงทั้งหมด)
                             >
                                 {facilitystatus.map((status) => (
@@ -615,7 +617,7 @@ export default function FacilityManager() {
                                             </Card>
                                         </Col>
                                         <Col xl={12}>
-                                            {getInfoType(facility.FacilityStatusID ?? 0,facility.Capacity ?? 0)}
+                                            {getInfoType(facility.FacilityTypeID ?? 0,facility.Capacity ?? 0,facility.Using ?? 0)}
                                         </Col>
                                         <Col xl={12}>
                                             {getIconStatus(facility.FacilityStatusID ?? 0)}

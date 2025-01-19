@@ -63,7 +63,7 @@ function LoginPages() {
         } else {
           navigate("/dashboard");
         }
-      }, 2000);
+      }, 1000);
     } else {
       // If there is an error, show the error message and disable the button
       messageApi.error(res.data.error);

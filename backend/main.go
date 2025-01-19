@@ -69,7 +69,12 @@ func main() {
 
         r.POST("/booking", controller.CreateBooking)
         r.DELETE("/booking/:id", controller.DeleteBookingByID)
-        r.GET("/bookings", controller.GetBookings)
+        r.DELETE("/bookings/:id", controller.DeleteBookingsByFacilityID)
+        r.GET("/booking/:id", controller.GetBookingByID)
+        r.GET("/bookingsFacility/:id", controller.GetBookingFacilityByID)
+        r.GET("/memberBooking/:id", controller.GetMemberBookingByID)
+        r.GET("/bookingMembers/:id", controller.GetBookingMemberbyID)
+        r.PUT("/checkBooking", controller.CheckBooking)
 
         // Gender Routes
         r.GET("/genders", controller.GetGenders)

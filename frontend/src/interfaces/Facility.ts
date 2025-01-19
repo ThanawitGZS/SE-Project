@@ -1,6 +1,7 @@
 export interface FacilityInterface {
     ID?: number;
     FacilityName?: string;
+    Using?: number;
     Capacity?: number;
     TimeOpen?: string;
     TimeClose?: string;

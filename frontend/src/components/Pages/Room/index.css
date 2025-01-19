@@ -17,6 +17,63 @@
     border-color: #28a745; /* ขอบยังคงเป็นสีเขียว */
   }
 
+.green-confirm-button {
+    background-color: #28a745;
+    color: #ffffff;
+    padding:20px;
+    height: 25px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 3px solid #28a745;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.green-confirm-button:hover {
+    transform: scale(1.05);
+    background-color: #ffffff !important; /* สลับเป็นพื้นหลังสีขาวเมื่อ hover */
+    color: #28a745 !important; /* สลับเป็นฟอนต์สีเขียวเมื่อ hover */
+    border-color: #28a745; /* ขอบยังคงเป็นสีเขียว */
+}
+
+.blue-confirm-button {
+    background-color: #0c8aff;
+    color: #ffffff;
+    padding:20px;
+    height: 25px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 3px solid #0c8aff;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.blue-confirm-button:hover {
+    transform: scale(1.05);
+    background-color: #ffffff !important; /* สลับเป็นพื้นหลังสีขาวเมื่อ hover */
+    color: #0c8aff !important; /* สลับเป็นฟอนต์สีเขียวเมื่อ hover */
+    border-color: #0c8aff; /* ขอบยังคงเป็นสีเขียว */
+}
+
+.red-confirm-button {
+    background-color: #e82020;
+    color: #ffffff;
+    padding:20px;
+    height: 25px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 3px solid #e82020;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.red-confirm-button:hover {
+    transform: scale(1.05);
+    background-color: #ffffff !important; /* สลับเป็นพื้นหลังสีขาวเมื่อ hover */
+    color: #e82020 !important; /* สลับเป็นฟอนต์สีเขียวเมื่อ hover */
+    border-color: #e82020; /* ขอบยังคงเป็นสีเขียว */
+}
+
 .card-room {
     border: 4px solid #8f969a;
     /* background-color: #f0f8ff; */
@@ -30,6 +87,23 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     /* width: 100px; กำหนดความกว้าง */
     /* height: 200px; กำหนดความสูง */
+    border-radius: 12px; /* ขอบมน */
+    
+    /* background-color: #ebebeb; */
+  
+    display: flex;  
+    justify-content: center; 
+    align-items: center; 
+  
+    font-size:18px;
+    font-weight: bold;
+}
+
+.card-room-book {
+    border: 3px solid #8f969a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* width: 100px; กำหนดความกว้าง */
+    height: 92px;
     border-radius: 12px; /* ขอบมน */
     
     /* background-color: #ebebeb; */
@@ -81,6 +155,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     /* width: 100px; กำหนดความกว้าง */
     /* height: 200px; กำหนดความสูง */
+    padding: 0px;
     border-radius: 12px; /* ขอบมน */
 
     color: #e82020;

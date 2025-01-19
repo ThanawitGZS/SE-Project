@@ -294,9 +294,30 @@ async function GetFacilityStatus() {
 }
 
 // Booking
-async function GetBookings() {
+async function GetBookingByID(id: string) {
   return await axios
-    .get(`${apiUrl}/bookings`, requestOptions)
+    .get(`${apiUrl}/booking/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function GetBookingFacilityByID(id: string) {
+  return await axios
+    .get(`${apiUrl}/bookingsFacility/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function GetBookingMemberByID(id: string) {
+  return await axios
+    .get(`${apiUrl}/bookingMembers/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function GetMemberBookingByID(id: string) {
+  return await axios
+    .get(`${apiUrl}/memberBooking/${id}`, requestOptions)
     .then((res) => res)
     .catch((e) => e.response);
 }
@@ -310,9 +331,24 @@ async function CreateBooking(data: RoomInterface) {
 
 async function DeleteBookingByID(id: string | undefined) {
   return await axios
-    .delete(`${apiUrl}/facility/${id}`, requestOptions)
+    .delete(`${apiUrl}/booking/${id}`, requestOptions)
     .then((res) => res)
     .catch((e) => e.response);
+}
+
+async function DeleteBookingByFacilityID(id: string | undefined) {
+  return await axios
+    .delete(`${apiUrl}/bookings/${id}`, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+}
+
+async function CheckBooking(data: any) {
+  return await axios
+    .put(`${apiUrl}/checkBooking`, data, requestOptions)
+    .then((res) => res)
+    .catch((e) => e.response);
+
 }
 
 export {
@@ -360,6 +396,11 @@ export {
 
   CreateBooking,
   DeleteBookingByID,
-  GetBookings,
+  DeleteBookingByFacilityID,
+  GetBookingByID,
+  GetBookingFacilityByID,
+  GetMemberBookingByID,
+  GetBookingMemberByID,
+  CheckBooking,
 
 }
